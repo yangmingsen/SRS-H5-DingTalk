@@ -1,12 +1,38 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view />
+    <!-- loading 遮罩层 -->
+    <transition name="el-fade-in">
+      <div class="loading-modal" v-show="loading" />
+    </transition>
+    <!-- loading 加载动画 -->
+    <transition name="el-fade-in">
+      <div class="gloadingbar" v-show="loading">
+        <div class="loader">
+          <div class="loader__bar"></div>
+          <div class="loader__bar"></div>
+          <div class="loader__bar"></div>
+          <div class="loader__bar"></div>
+          <div class="loader__bar"></div>
+          <div class="loader__ball"></div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+import { ApiExample } from "./api/example";
+export default {
+  computed: {
+    ...mapGetters(["loading"])
+  },
+  mounted() {
+    ApiExample.list({});
+  }
+};
+</script>
 
 <style>
 #app {
