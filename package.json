@@ -11,6 +11,7 @@
     "@galaplat/utils": "^1.0.21",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "dingtalk-jsapi": "^2.10.3",
     "element-ui": "^2.13.1",
     "less": "^3.11.1",
     "vue": "^2.6.11",
