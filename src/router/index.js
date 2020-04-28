@@ -5,19 +5,21 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    name: "home",
-    path: "/",
-    component: () => import("../views/home")
-  },
-  {
-    name: "about",
-    path: "/about",
-    component: () => import("../views/about")
+    path: "/:sysCode(\\w+)/",
+    component: () => import("../views/index"),
+    children: [
+      {
+        name: "home",
+        path: "home",
+        component: () => import("../views/Home")
+      }
+    ]
   }
 ];
 
 const router = new VueRouter({
   mode: "history",
+  base: "/dingtalk/",
   routes
 });
 
