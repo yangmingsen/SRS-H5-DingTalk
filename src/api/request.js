@@ -4,7 +4,13 @@ import Response from "./Response";
 import store from "../store";
 
 const serverConfig = require("@galaplat/utils/src/server.conf.json");
-
+const busiSysCode = (() => {
+  var str = window.location.pathname;
+  if (str == "" || str == "/" || str.split("/").length < 3) {
+    return "";
+  }
+  return str.split("/")[2];
+})();
 /**
  * 获取服务配置
  * @param {String} env 指定环境
@@ -151,7 +157,7 @@ export default {
       ...options,
       headers: {
         lang: "ZH",
-        sysCode: "",
+        sysCode: busiSysCode,
         ...options.headers
       }
     };

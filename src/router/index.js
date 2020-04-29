@@ -7,10 +7,11 @@ const routes = [
   {
     path: "/:sysCode(\\w+)/",
     component: () => import("../views/index"),
+    redirect: { name: "index" },
     children: [
       {
-        name: "home",
-        path: "home",
+        name: "index",
+        path: "index",
         component: () => import("../views/Home")
       }
     ]
