@@ -1,36 +1,53 @@
 <template>
     <div class="home">
-        <img alt="Vue logo" src="../assets/logo.png"/>
-        <!--    <HelloWorld msg="Welcome to Your Vue.js App" />-->
-        <div class="home-date">
-            <div class="home-date-show">{{dateMsg}}</div>
-            <div class="show">code={{code}}</div>
-            <div class="home-date-choose" @click="dateChoose">选择</div>
+        <div class="filterarea">
+            <div class="filterarea-date" @click="dateChoose">
+                <el-input
+                        suffix-icon="el-icon-date"
+                        :readonly=true
+                        v-model="dateMsg"
+                        class="filterarea-date-input">
+                </el-input>
+            </div>
+            <div class="filterarea-floor" @click="seatChoose">
+                <el-input
+                        suffix-icon="el-icon-caret-right"
+                        :readonly=true
+                        v-model="floorMsg"
+                        class="filterarea-floor-input">
+                </el-input>
+            </div>
         </div>
-        <div class="home-seat">
-            <div class="home-seat-choose" @click="seatChoose">{{seatMsg}}</div>
+        <div class="blankarea" v-show="isShowData">
+            <img class="blankarea-img" src="../assets/images/bg_noData_chf.png">
+            <div class="txt-empty">
+                <div class="nodata">暂无数据</div>
+                <div class="hintchoosefloor">请先选择您工作的楼层</div>
+            </div>
         </div>
-        <router-view></router-view>
-        <Footer></Footer>
+        <div class="choosearea" v-show="!isShowData">
+            <div class="choosearea-10B5" v-show="floorSelect==1">10b5</div>
+            <div class="choosearea-10B6" v-show="floorSelect==2">10b6</div>
+            <div class="choosearea-10B7" v-show="floorSelect==3">10b7</div>
+            <div class="choosearea-13B5" v-show="floorSelect==4">13b5</div>
+        </div>
     </div>
 
 </template>
 
 <script>
     // @ is an alias to /src
-    import Footer from "./Footer";
     import * as dd from 'dingtalk-jsapi';
-
+    import {ApiExample} from "../api/example"
     export default {
         name: "Home",
-        components: {
-            Footer
-        },
+        components: {},
         data() {
             return {
-                dateMsg: "2020-05-08",
-                seatMsg: "座位所属楼层选择 》",
-                code:  ""
+                dateMsg: "2020-05-12",
+                floorMsg: "座位所属楼层",
+                isShowData: true, // true=用户没有选择楼层(默认),   false 用户选择了楼层
+                floorSelect: 1 //1=10b5, 2=10b6, 3=10b7, 4=13b5
             }
         },
         methods: {
@@ -40,16 +57,16 @@
                     dd.biz.util.chosen({
                         source: [{
                             key: '10B 第五层', //显示文本
-                            value: '10b-5' //值，
+                            value: 1 //值，
                         }, {
                             key: '10B 第六层', //显示文本
-                            value: '10b-6' //值，
+                            value: 2 //值，
                         }, {
                             key: '10B 第七层', //显示文本
-                            value: '10b-7' //值，
+                            value: 3 //值，
                         }, {
                             key: '13B 第五层', //显示文本
-                            value: '13b-5' //值，
+                            value: 4 //值，
                         }],
                         selectedKey: '10B 第五层', // 默认选中的key
                         onSuccess: function (result) {
@@ -60,10 +77,11 @@
                                 value: '234'
                             }
                             */
+                            that.isShowData = false; //取消默认空白页
+                            that.floorMsg = result.key;
+                            // that.$router.push({name: "user-choose"});
+                            that.floorSelect = result.value
 
-                            that.seatMsg = result.key
-                            localStorage.setItem("seatMsg",result)
-                            that.$router.push({name: "user-choose"});
                         },
                         onFail: function (err) {
                         }
@@ -72,8 +90,8 @@
             },
 
             dateChoose() {
-                const that = this
-                dd.ready(() =>  {
+                const that = this;
+                dd.ready(() => {
                     dd.biz.util.datepicker({
                         format: 'yyyy-MM-dd',//注意：format只支持android系统规范，即2015-03-31格式为yyyy-MM-dd
                         value: that.dateMsg, //默认显示日期
@@ -84,66 +102,83 @@
                             }
                             */
                             that.dateMsg = result.value
-                            localStorage.setItem("dateMsg",result.value)
                         },
                         onFail: function (err) {
                         }
                     })
                 });
-            },
-
-            getUserInfo() {
-                const that = this
-                dd.ready(() => {
-                    dd.runtime.permission.requestAuthCode({
-                        corpId: 'dingfeefdd8ead408b2df5bf40eda33b7ba0', // 企业id
-                        onSuccess: function (info) {
-                            that.code = info.code // 通过该免登授权码可以获取用户身份
-                        }});
-                })
             }
         },
         mounted() {
-            this.getUserInfo();
+            // if($route) {
+            //     //this.isShowData = true
+            //     //从后端查询座位信息，然后显示座位图
+            // }
         }
     };
 </script>
 
 <style lang="less" scoped>
-    .floor-choose {
+
+    //日期选择div
+    .filterarea-date-input {
+        font-size: 1rem;
+        margin-top:0.8rem;
     }
 
-    .el-row {
-        margin-bottom: 20px;
+    .filterarea-date-input /deep/ .el-input__inner {
+        border: 1px solid #C3EFF4;
+        color: #00afa5;
+        border-radius: 10px;
+    }
 
-        &:last-child {
-            margin-bottom: 0;
+    //上图标
+    .filterarea-date-input /deep/ .el-input__suffix {
+        color: #00afa5;
+        font-size: 1.2rem;
+    }
+
+    //楼层选择div
+    .filterarea-floor-input {
+        font-size: 1rem;
+        margin-top:0.8rem;
+    }
+    .filterarea-floor-input /deep/ .el-input__inner {
+        background-color: #E1F7F9;
+        color: #00afa5;
+        border: 1px solid #E1F7F9;
+        border-radius: 10px;
+    }
+    //下图标
+    .filterarea-floor-input  /deep/ .el-input__suffix {
+        color: #00afa5;
+        font-size: 1.2rem;
+    }
+
+    @media screen and (max-width: 992px) {
+        .filterarea-date-input {
+            margin-top: 0.6rem;
+        }
+        .filterarea-floor-input {
+            margin-top: 0.6rem;
         }
     }
 
-    .el-col {
-        border-radius: 4px;
+    //吉祥物配置
+    .blankarea-img {
+        margin-top: 8rem;
+        width: 10rem;
     }
 
-    .bg-purple-dark {
-        background: #99a9bf;
+    .nodata {
+        font-weight: bold;
     }
 
-    .bg-purple {
-        background: #d3dce6;
+    .hintchoosefloor {
+        margin-top: 0.6rem;
+        color: #9a9a9a;
     }
 
-    .bg-purple-light {
-        background: #e5e9f2;
-    }
 
-    .grid-content {
-        border-radius: 4px;
-        min-height: 36px;
-    }
 
-    .row-bg {
-        padding: 10px 0;
-        background-color: #f9fafc;
-    }
 </style>

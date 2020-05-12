@@ -1,10 +1,12 @@
 import request from "./request";
 
 export const ApiExample = {
-  async list(params) {
-    const res = await request.get("example/list", params);
-    if (res.code === -1) {
-      res.showMessage();
+  async login(params) {
+    const res = await request.post("mobile/login", params, { requestType: 'form' })
+      if (res.code != 0) {
+      alert(JSON.stringify(res))
     }
-  }
-};
+    return res;
+  },
+
+}

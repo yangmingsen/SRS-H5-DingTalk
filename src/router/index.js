@@ -12,24 +12,27 @@ const routes = [
       {
         path: "",
         component: () => import("../views/Home"),
-        redirect: {name: "default-blank"},
-        children: [
-          {
-            name: "default-blank",
-            path: "default-blank",
-            component: () => import("../components/DefaultBlank")
-          },
-          {
-            name: "user-choose",
-            path: "user-choose",
-            component: () => import("../components/UserChoose")
-          }
-        ]
+        // redirect: {name: "default-blank"},
+        // children: [
+        //   {
+        //     name: "default-blank",
+        //     path: "default-blank",
+        //     component: () => import("../components/DefaultBlank")
+        //   },
+        //   {
+        //     name: "user-choose",
+        //     path: "user-choose",
+        //     component: () => import("../components/UserChoose")
+        //   }
+        // ]
       },
       {
         name: 'my-reserve',
         path: 'my-reserve',
-        component: () => import("../views/MyReserve")
+        component: () => import("../views/MyReserve"),
+        children: [
+
+        ]
       }
     ]
   }

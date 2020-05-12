@@ -1,15 +1,72 @@
 <template>
-    <div class="main">
-        <router-view></router-view>
-    </div>
+<!--    <div class="main">-->
+<!--        <router-view></router-view>-->
+<!--        <Footer></Footer>-->
+<!--    </div>-->
+    <el-container>
+<!--        <el-header>Header</el-header>-->
+        <el-main>
+            <div class="main">
+                <router-view></router-view>
+            </div>
+        </el-main>
+        <el-footer>
+            <Footer></Footer>
+        </el-footer>
+    </el-container>
 </template>
 
 <script>
+    import Footer from "./Footer";
+    import * as dd from 'dingtalk-jsapi';
+    import { ApiExample } from "../api/example"
     export default {
-        name: "Index"
+        name: "Index",
+        components: {
+            Footer
+        },
+        data() {
+            return {
+                resMsg: null,
+                code: null,
+            }
+        },
+        methods: {
+            getCode() {
+                const that = this
+                dd.ready( () => {
+                    dd.runtime.permission.requestAuthCode({
+                        corpId: 'dingfeefdd8ead408b2df5bf40eda33b7ba0', // 企业id
+                        onSuccess: async function (info) {
+                            that.code = info.code // 通过该免登授权码可以获取用户身份
+                            let res = await ApiExample.login({code: that.code});
+                            that.resMsg = res;
+                        }});
+                })
+            }
+        },
+        mounted() {
+            //this.getCode();
+        }
     }
 </script>
 
 <style scoped>
 
+    .main {
+        position: relative;
+    }
+    .el-footer {
+        padding: 0px;
+        width: 100%;
+    }
+    .el-main {
+        padding: 0 2%;
+    }
+
+    @media screen and (min-width: 992px) {
+        .el-main {
+            padding: 0 1%;
+        }
+    }
 </style>

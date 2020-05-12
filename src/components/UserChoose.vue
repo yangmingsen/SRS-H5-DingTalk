@@ -1,12 +1,13 @@
 <template>
     <div class="describe">
-        1.可选 2.已选 3.当前选中
+<!--        1.可选 2.已选 3.当前选中-->
 
-        <div class="c-1">可选</div>
-        <div class="c-2" @click="showC2">已选</div>
-        <div class="c-3" @click="showC3">选中</div>
+<!--        <div class="c-1">可选</div>-->
+<!--        <div class="c-2" @click="showC2">已选</div>-->
+<!--        <div class="c-3" @click="showC3">选中</div>-->
 
-        这是用户选择主页
+<!--        这是用户选择主页-->
+        <div class="timechoose"></div>
     </div>
 </template>
 
