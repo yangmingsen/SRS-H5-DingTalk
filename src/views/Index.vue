@@ -3,17 +3,12 @@
 <!--        <router-view></router-view>-->
 <!--        <Footer></Footer>-->
 <!--    </div>-->
-    <el-container>
-<!--        <el-header>Header</el-header>-->
-        <el-main>
-            <div class="main">
-                <router-view></router-view>
-            </div>
-        </el-main>
-        <el-footer>
-            <Footer></Footer>
-        </el-footer>
-    </el-container>
+<div>
+    <div class="main">
+        <router-view></router-view>
+    </div>
+    <Footer></Footer>
+</div>
 </template>
 
 <script>
@@ -46,7 +41,7 @@
             }
         },
         mounted() {
-            //this.getCode();
+            this.getCode();
         }
     }
 </script>
@@ -55,17 +50,11 @@
 
     .main {
         position: relative;
-    }
-    .el-footer {
-        padding: 0px;
-        width: 100%;
-    }
-    .el-main {
         padding: 0 2%;
     }
 
     @media screen and (min-width: 992px) {
-        .el-main {
+        .main {
             padding: 0 1%;
         }
     }
