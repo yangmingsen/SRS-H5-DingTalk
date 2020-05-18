@@ -1,28 +1,25 @@
 import request from "./request";
 
 export const ApiExample = {
-  async login(params) {
-    const res = await request.post("mobile/login", params, { requestType: 'form' })
+    //登录接口
+    async login(params) {
+        return await request.post("mobile/login", params, {requestType: 'form'})
+    },
 
-    if (res.code != 0) {
-      alert(JSON.stringify(res))
+    //移动端查询预定员工信息
+    async getReservationStaff(params) {
+        return await request.get("mobile/reservation/getReservationStaff", params)
+    },
+
+
+    //移动端查询楼层信息
+    storeyList() {
+        return request.get("mobile/storey/list");
+    },
+
+    //移动端查询座位布局图
+    seatList(params) {
+        return request.get("mobile/seat/list", params);
     }
-    return res;
-  },
-
-//楼层表
- storeyList() {
-    return  request.get("mobile/storey/list");
-  },
-
-  //座位布局表
- seatList(params) {
-    return request.get("mobile/seat/list",params);
-    // if (res.code != 0) {
-    //   alert(JSON.stringify(res))
-    // }
-    //
-    // return res;
-  }
 
 }

@@ -5,7 +5,7 @@
                 <el-input
                         suffix-icon="el-icon-date"
                         :readonly=true
-                        v-model="dateMsg"
+                        v-model="selectDate"
                         class="filterarea-date-input">
                 </el-input>
             </div>
@@ -29,22 +29,22 @@
             <div class="choosearea-hint">
                 <el-row>
                     <el-col :span="6">
-                        <div class="grid-content bg-purple bg-purple1" style="font-size: 0.6rem">
+                        <div class="grid-content bg-purple choosearea-hint-seat bg-purple1" style="font-size: 0.6rem">
                             可选
                         </div>
                     </el-col>
                     <el-col :span="6">
-                        <div class="grid-content bg-purple bg-purple2" style="font-size: 0.6rem" >
+                        <div class="grid-content bg-purple choosearea-hint-seat bg-purple2" style="font-size: 0.6rem">
                             已选
                         </div>
                     </el-col>
                     <el-col :span="6">
-                        <div class="grid-content bg-purple bg-purple3" style="font-size: 0.6rem">
+                        <div class="grid-content bg-purple choosearea-hint-seat bg-purple3" style="font-size: 0.6rem">
                             我的座位
                         </div>
                     </el-col>
                     <el-col :span="6">
-                        <div class="grid-content bg-purple bg-purple4"  style="font-size: 0.6rem">
+                        <div class="grid-content bg-purple choosearea-hint-seat bg-purple4" style="font-size: 0.6rem">
                             已被预订
                         </div>
                     </el-col>
@@ -53,189 +53,97 @@
             <div class="chooseseat">
                 <div class="choosefloor choosearea-10B5" v-if="floorSelect == 1">
                     <!--                   第一层-->
-                    <div class="user-seat rotate90" :class="getClass('041')"  style="top:1%;left:3%"></div>
-                    <div class="user-seat rotate90" :class="getClass('042')"  style="top:6.6%;left:3%"></div>
-                    <div class="user-seat rotate90" :class="getClass('043')"  style="top:12.2%;left:3%"></div>
-                    <div class="user-seat rotate270" :class="getClass('035')"  style="top:1%;left:12%"></div>
-                    <div class="user-seat rotate270" :class="getClass('036')"  style="top:6.6%;left:12%"></div>
-                    <div class="user-seat rotate270" :class="getClass('037')"  style="top:12.2%;left:12%"></div>
-
-                    <div class="user-seat rotate90" :class="getClass('029')"  style="top:1%;left:22%"></div>
-                    <div class="user-seat rotate90" :class="getClass('030')"  style="top:6.6%;left:22%"></div>
-                    <div class="user-seat rotate90" :class="getClass('031')"  style="top:12.2%;left:22%"></div>
-                    <div class="user-seat rotate270" :class="getClass('023')"  style="top:1%;left: 30%"></div>
-                    <div class="user-seat rotate270" :class="getClass('024')"  style="top:6.6%;left: 30%"></div>
-                    <div class="user-seat rotate270" :class="getClass('025')"  style="top:12.2%;left: 30%"></div>
-
-                    <div class="user-seat rotate90" :class="getClass('018')"  style="top:6.6%;left:40%"></div>
-                    <div class="user-seat rotate90" :class="getClass('019')"  style="top:12.2%;left:40%"></div>
-                    <div class="user-seat rotate270" :class="getClass('013')"  style="top:6.6%;left: 48.4%"></div>
-                    <div class="user-seat rotate270" :class="getClass('014')"  style="top:12.2%;left: 48.4%"></div>
-
-
-                    <div class="user-seat rotate90" :class="getClass('007')"  style="top:1%;left:58.5%"></div>
-                    <div class="user-seat rotate90" :class="getClass('008')"  style="top:6.6%;left:58.5%"></div>
-                    <div class="user-seat rotate90" :class="getClass('009')"  style="top:12.2%;left:58.5%"></div>
-                    <div class="user-seat rotate270" :class="getClass('001')"  style="top:1%;left: 66.8%"></div>
-                    <div class="user-seat rotate270" :class="getClass('002')"  style="top:6.6%;left: 66.8%"></div>
-                    <div class="user-seat rotate270" :class="getClass('003')"  style="top:12.2%;left: 66.8%"></div>
-
-                    <!--                   第二层-->
-                    <div class="user-seat rotate90" :class="getClass('044')"  style="top:21.5%;left:3%"></div>
-                    <div class="user-seat rotate90" :class="getClass('045')"  style="top:27.1%;left:3%"></div>
-                    <div class="user-seat rotate90" :class="getClass('046')"  style="top:32.7%;left:3%"></div>
-                    <div class="user-seat rotate270" :class="getClass('038')"  style="top:21.5%;left: 12%"></div>
-                    <div class="user-seat rotate270" :class="getClass('039')"  style="top:27.1%;left: 12%"></div>
-                    <div class="user-seat rotate270" :class="getClass('040')"  style="top:32.7%;left: 12%"></div>
-
-                    <div class="user-seat rotate90" :class="getClass('032')"  style="top:21.5%;left:22%"></div>
-                    <div class="user-seat rotate90" :class="getClass('033')"  style="top:27.1%;left:22%"></div>
-                    <div class="user-seat rotate90" :class="getClass('034')"  style="top:32.7%;left:22%"></div>
-                    <div class="user-seat rotate270" :class="getClass('026')"  style="top:21.5%;left: 30%"></div>
-                    <div class="user-seat rotate270" :class="getClass('027')"  style="top:27.1%;left: 30%"></div>
-                    <div class="user-seat rotate270" :class="getClass('028')"  style="top:32.7%;left: 30%"></div>
-
-
-                    <div class="user-seat rotate90" :class="getClass('020')"  style="top:21.5%;left:40%"></div>
-                    <div class="user-seat rotate90" :class="getClass('021')"  style="top:27.1%;;left:40%"></div>
-                    <div class="user-seat rotate90" :class="getClass('022')"  style="top:32.7%;;left:40%"></div>
-                    <div class="user-seat rotate270" :class="getClass('015')"  style="top:21.5%;left: 48.4%"></div>
-                    <div class="user-seat rotate270" :class="getClass('016')"  style="top:27.1%;left: 48.4%"></div>
-                    <div class="user-seat rotate270" :class="getClass('017')"  style="top:32.7%;left: 48.4%"></div>
-
-
-                    <div class="user-seat rotate90" :class="getClass('010')"  style="top:21.5%;left:58.5%"></div>
-                    <div class="user-seat rotate90" :class="getClass('011')"  style="top:27.1%;;left:58.5%"></div>
-                    <div class="user-seat rotate90" :class="getClass('012')"  style="top:32.7%;;left:58.5%"></div>
-                    <div class="user-seat rotate270" :class="getClass('004')"  style="top:21.5%;left: 66.8%"></div>
-                    <div class="user-seat rotate270" :class="getClass('005')"  style="top:27.1%;left: 66.8%"></div>
-                    <div class="user-seat rotate270" :class="getClass('006')"  style="top:32.7%;left: 66.8%"></div>
-
-
-                    <!--                   第三层-->
-                    <div class="user-seat rotate90" :class="getClass('049')"   style="top:41.2%;left:3%"></div>
-                    <div class="user-seat rotate90" :class="getClass('050')"  style="top:46.2%;left:3%"></div>
-                    <div class="user-seat rotate90" :class="getClass('047')"  style="top:41.2%;left:10%"></div>
-                    <div class="user-seat rotate90" :class="getClass('048')"  style="top:46.2%;left:10%"></div>
-
-                    <!--                   第四层-->
-                    <div class="user-seat " :class="getClass('129')"  style="top:73.5%;left:3.5%"></div>
-                    <div class="user-seat " :class="getClass('128')"  style="top:73.5%;left:11.5%"></div>
-
-                    <div class="user-seat rotate180" :class="getClass('131')"  style="top:77.9%;left:3.5%"></div>
-                    <div class="user-seat rotate180" :class="getClass('130')"  style="top:77.9%;left:11.5%"></div>
-                    <div class="user-seat " :class="getClass('133')"  style="top:84.6%;left:3.5%"></div>
-                    <div class="user-seat " :class="getClass('132')"  style="top:84.6%;left:11.5%"></div>
-
-                    <div class="user-seat rotate180" :class="getClass('135')"  style="top:88.8%;left:3.5%"></div>
-                    <div class="user-seat rotate180" :class="getClass('134')"  style="top:88.8%;left:11.5%"></div>
-
-
-                    <!--                  第五层1-->
-                    <div class="user-seat " :class="getClass('057')"  style="top:41%;left:23.3%"></div>
-                    <div class="user-seat " :class="getClass('056')"  style="top:41%;left:30.3%"></div>
-                    <div class="user-seat " :class="getClass('055')"  style="top:41%;left:37.3%"></div>
-                    <div class="user-seat " :class="getClass('054')"  style="top:41%;left:44.3%"></div>
-                    <div class="user-seat " :class="getClass('053')"  style="top:41%;left:51.3%"></div>
-                    <div class="user-seat " :class="getClass('052')"  style="top:41%;left:58.3%"></div>
-                    <div class="user-seat " :class="getClass('051')"  style="top:41%;left:65.3%"></div>
-
-
-                    <!--                  第五层2-->
-                    <div class="user-seat rotate180" :class="getClass('064')"  style="top:46.5%;left:23.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('063')"  style="top:46.5%;left:30.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('062')"  style="top:46.5%;left:37.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('061')"  style="top:46.5%;left:44.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('060')"  style="top:46.5%;left:51.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('059')"  style="top:46.5%;left:58.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('058')"  style="top:46.5%;left:65.3%"></div>
-
-                    <div class="user-seat " :class="getClass('071')"  style="top:52.9%;left:23.3%"></div>
-                    <div class="user-seat " :class="getClass('070')"  style="top:52.9%;left:30.3%"></div>
-                    <div class="user-seat " :class="getClass('069')"  style="top:52.9%;left:37.3%"></div>
-                    <div class="user-seat " :class="getClass('068')"  style="top:52.9%;left:44.3%"></div>
-                    <div class="user-seat " :class="getClass('067')"  style="top:52.9%;left:51.3%"></div>
-                    <div class="user-seat " :class="getClass('066')"  style="top:52.9%;left:58.3%"></div>
-                    <div class="user-seat " :class="getClass('065')"  style="top:52.9%;left:65.3%"></div>
-
-
-                    <!--                  第五层3-->
-                    <div class="user-seat rotate180" :class="getClass('078')"  style="top:56.8%;left:23.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('077')"  style="top:56.8%;left:30.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('076')"  style="top:56.8%;left:37.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('075')"  style="top:56.8%;left:44.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('074')"  style="top:56.8%;left:51.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('073')"  style="top:56.8%;left:58.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('072')"  style="top:56.8%;left:65.3%"></div>
-
-                    <div class="user-seat " :class="getClass('085')"  style="top:62.9%;left:23.3%"></div>
-                    <div class="user-seat " :class="getClass('084')"  style="top:62.9%;left:30.3%"></div>
-                    <div class="user-seat " :class="getClass('083')"  style="top:62.9%;left:37.3%"></div>
-                    <div class="user-seat " :class="getClass('082')"  style="top:62.9%;left:44.3%"></div>
-                    <div class="user-seat " :class="getClass('081')"  style="top:62.9%;left:51.3%"></div>
-                    <div class="user-seat " :class="getClass('080')"  style="top:62.9%;left:58.3%"></div>
-                    <div class="user-seat " :class="getClass('079')"  style="top:62.9%;left:65.3%"></div>
-
-
-                    <!--                  第五层4-->
-                    <div class="user-seat rotate180" :class="getClass('092')"  style="top:67%;left:23.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('091')"  style="top:67%;left:30.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('090')"  style="top:67%;left:37.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('089')"  style="top:67%;left:44.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('088')"  style="top:67%;left:51.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('087')"  style="top:67%;left:58.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('086')"  style="top:67%;left:65.3%"></div>
-
-                    <div class="user-seat " :class="getClass('099')"  style="top:73.2%;left:23.3%"></div>
-                    <div class="user-seat " :class="getClass('098')"  style="top:73.2%;left:30.3%"></div>
-                    <div class="user-seat " :class="getClass('097')"  style="top:73.2%;left:37.3%"></div>
-                    <div class="user-seat " :class="getClass('096')"  style="top:73.2%;left:44.3%"></div>
-                    <div class="user-seat " :class="getClass('095')"  style="top:73.2%;left:51.3%"></div>
-                    <div class="user-seat " :class="getClass('094')"  style="top:73.2%;left:58.3%"></div>
-                    <div class="user-seat " :class="getClass('093')"  style="top:73.2%;left:65.3%"></div>
-
-
-                    <!--                  第五层5-->
-                    <div class="user-seat rotate180" :class="getClass('106')"  style="top:77.3%;left:23.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('105')"  style="top:77.3%;left:30.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('104')"  style="top:77.3%;left:37.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('103')"  style="top:77.3%;left:44.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('102')"  style="top:77.3%;left:51.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('101')"  style="top:77.3%;left:58.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('100')"  style="top:77.3%;left:65.3%"></div>
-
-                    <div class="user-seat " :class="getClass('113')"  style="top:83.2%;left:23.3%"></div>
-                    <div class="user-seat " :class="getClass('112')"  style="top:83.2%;left:30.3%"></div>
-                    <div class="user-seat " :class="getClass('111')"  style="top:83.2%;left:37.3%"></div>
-                    <div class="user-seat " :class="getClass('110')"  style="top:83.2%;left:44.3%"></div>
-                    <div class="user-seat " :class="getClass('109')"  style="top:83.2%;left:51.3%"></div>
-                    <div class="user-seat " :class="getClass('108')"  style="top:83.2%;left:58.3%"></div>
-                    <div class="user-seat " :class="getClass('107')"  style="top:83.2%;left:65.3%"></div>
-
-
-                    <!--                  第五层6-->
-                    <div class="user-seat rotate180" :class="getClass('120')"  style="top:87.5%;left:23.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('119')"  style="top:87.5%;left:30.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('118')"  style="top:87.5%;left:37.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('117')"  style="top:87.5%;left:44.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('116')"  style="top:87.5%;left:51.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('115')"  style="top:87.5%;left:58.3%"></div>
-                    <div class="user-seat rotate180" :class="getClass('114')"  style="top:87.5%;left:65.3%"></div>
-
-                    <div class="user-seat " :class="getClass('127')"  style="top:93.6%;left:23.3%"></div>
-                    <div class="user-seat " :class="getClass('126')"  style="top:93.6%;left:30.3%"></div>
-                    <div class="user-seat " :class="getClass('125')"  style="top:93.6%;left:37.3%"></div>
-                    <div class="user-seat " :class="getClass('124')"  style="top:93.6%;left:44.3%"></div>
-                    <div class="user-seat " :class="getClass('123')"  style="top:93.6%;left:51.3%"></div>
-                    <div class="user-seat " :class="getClass('122')"  style="top:93.6%;left:58.3%"></div>
-                    <div class="user-seat " :class="getClass('121')"  style="top:93.6%;left:65.3%"></div>
-
+                    <div v-for="item in seatBaseInfo" :index="item.code" class="user-seat" :class="getClass(item)"  @click="whenClickSeat(item.code)" :style="{top: item.top, left: item.left}"></div>
                 </div>
                 <div class="choosefloor choosearea-10B6" v-if="floorSelect == 2">10b6</div>
                 <div class="choosefloor choosearea-10B7" v-if="floorSelect == 3">10b7</div>
                 <div class="choosefloor choosearea-13B5" v-if="floorSelect == 4">13b5</div>
+
+                </div>
+
+            </div>
+
+            <!--                座位预定提示-->
+            <div class="seat-reserved-hint" v-if="seatReservedHint">
+                <el-row>
+                    <el-col :span="24">
+                        <div class="grid-content bg-purple" style="font-size: 1.5rem; font-weight: bold">003</div>
+                    </el-col>
+                </el-row>
+                <el-row class="seat-reserved-hint-dept">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple bg-purple11">杨铭森</div>
+                    </el-col>
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple ">流程IT中心</div>
+                    </el-col>
+                </el-row>
+            </div>
+            <!--                座位预定中-->
+        <div class="seat-reserving" v-if="seatReserving">
+            <div class="seat-reserving-top">
+                <el-row>
+                    <el-col :span="12">
+                        <div class="grid-content seat-reserving-top-left">033号座</div>
+                    </el-col>
+                    <el-col :span="12">
+                        <div class="grid-content seat-reserving-top-right">
+                            我要预定
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
+            <div class="reserving-scroll">
+                    <div class="seat-reserving-choose">
+                        <div class="seat-reserving-choose-date seat-icon-checking">
+                            5月18日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-choosable">
+                            5月19日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-choosable">
+                            5月20日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-dischoosable">
+                            5月21日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-choosable">
+                            5月22日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-choosable">
+                            5月23日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-dischoosable">
+                            5月24日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-choosable">
+                            5月25日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-checking">
+                            5月26日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-choosable">
+                            5月27日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-choosable">
+                            5月28日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-dischoosable">
+                            5月29日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-choosable">
+                            5月30日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-choosable">
+                            5月31日
+                        </div>
+                        <div class="seat-reserving-choose-date seat-icon-dischoosable">
+                            6月1日
+                        </div>
+                    </div>
             </div>
         </div>
+
     </div>
 
 </template>
@@ -244,152 +152,377 @@
     // @ is an alias to /src
     import * as dd from 'dingtalk-jsapi';
     import {ApiExample} from "../api/example"
+    import {ddAPI} from "../api/ddAPI";
 
     export default {
         name: "Home",
         components: {},
         data() {
             return {
-                dateMsg: "2020-05-13",
-                floorShowMsg: "座位所属楼层",
-                floorSelectedKey:null,
-                isShowData: true, // true=用户没有选择楼层(默认),   false 用户选择了楼层
+                selectDate: "2020-05-13", //用户当前选择日期
+                floorShowMsg: "座位所属楼层", //楼层选择信息
+                floorSelectedKey: null,
+                isShowData: false, // true=用户没有选择楼层(默认),   false 用户选择了楼层
                 floorSelect: 1, //1=10b5, 2=10b6, 3=10b7, 4=13b5,
-                seatData: {
+                seatData: { //座位布局图数据
                     "msg": "成功",
                     "code": "0",
                     "spenttime": 69,
                     "result": [
-                        {
-                            "code": "0001", //座位唯一编码
-                            "no": "A001", //	座位编号(用于显示,可被改变)
-                            "state": 0 //0-可选；1-不可选；2-已被预订；3-我的座位
-                        },
-                        {
-                            "code": "0002",
-                            "no": "A002",
-                            "state": 1
-                        } ,
-                        {
-                            "code": "0003",
-                            "no": "A002",
-                            "state": 2
-                        } ,
-                        {
-                            "code": "0004",
-                            "no": "A002",
-                            "state": 3
-                        },
-                        {
-                            "code": "0005",
-                            "no": "A002",
-                            "state": 1
-                        },
-                        {
-                            "code": "0006",
-                            "no": "A002",
-                            "state": 1
-                        }
+                        {"code":"001", "no":"A001", "state":0},
+                        {"code":"002", "no":"A002", "state":1},
+                        {"code":"003", "no":"A003", "state":2},
+                        {"code":"004", "no":"A004", "state":0},
+                        {"code":"005", "no":"A005", "state":2},
+                        {"code":"006", "no":"A006", "state":1},
+                        {"code":"007", "no":"A007", "state":1},
+                        {"code":"008", "no":"A008", "state":2},
+                        {"code":"009", "no":"A009", "state":2},
+                        {"code":"010", "no":"A010", "state":1},
+                        {"code":"011", "no":"A011", "state":2},
+                        {"code":"012", "no":"A012", "state":1},
+                        {"code":"013", "no":"A013", "state":2},
+                        {"code":"014", "no":"A014", "state":0},
+                        {"code":"015", "no":"A015", "state":1},
+                        {"code":"016", "no":"A016", "state":0},
+                        {"code":"017", "no":"A017", "state":1},
+                        {"code":"018", "no":"A018", "state":1},
+                        {"code":"019", "no":"A019", "state":0},
+                        {"code":"020", "no":"A020", "state":0},
+                        {"code":"021", "no":"A021", "state":1},
+                        {"code":"022", "no":"A022", "state":1},
+                        {"code":"023", "no":"A023", "state":0},
+                        {"code":"024", "no":"A024", "state":1},
+                        {"code":"025", "no":"A025", "state":1},
+                        {"code":"026", "no":"A026", "state":2},
+                        {"code":"027", "no":"A027", "state":2},
+                        {"code":"028", "no":"A028", "state":0},
+                        {"code":"029", "no":"A029", "state":0},
+                        {"code":"030", "no":"A030", "state":2},
+                        {"code":"031", "no":"A031", "state":0},
+                        {"code":"032", "no":"A032", "state":2},
+                        {"code":"033", "no":"A033", "state":2},
+                        {"code":"034", "no":"A034", "state":2},
+                        {"code":"035", "no":"A035", "state":2},
+                        {"code":"036", "no":"A036", "state":0},
+                        {"code":"037", "no":"A037", "state":0},
+                        {"code":"038", "no":"A038", "state":3},
+                        {"code":"038", "no":"A038", "state":1},
+                        {"code":"039", "no":"A039", "state":2},
+                        {"code":"040", "no":"A040", "state":2},
+                        {"code":"041", "no":"A041", "state":0},
+                        {"code":"042", "no":"A042", "state":0},
+                        {"code":"043", "no":"A043", "state":0},
+                        {"code":"044", "no":"A044", "state":2},
+                        {"code":"045", "no":"A045", "state":1},
+                        {"code":"046", "no":"A046", "state":2},
+                        {"code":"047", "no":"A047", "state":1},
+                        {"code":"048", "no":"A048", "state":1},
+                        {"code":"049", "no":"A049", "state":0},
+                        {"code":"050", "no":"A050", "state":1},
+                        {"code":"051", "no":"A051", "state":0},
+                        {"code":"052", "no":"A052", "state":0},
+                        {"code":"053", "no":"A053", "state":0},
+                        {"code":"054", "no":"A054", "state":2},
+                        {"code":"055", "no":"A055", "state":1},
+                        {"code":"056", "no":"A056", "state":0},
+                        {"code":"057", "no":"A057", "state":0},
+                        {"code":"058", "no":"A058", "state":0},
+                        {"code":"059", "no":"A059", "state":0},
+                        {"code":"060", "no":"A060", "state":2},
+                        {"code":"061", "no":"A061", "state":2},
+                        {"code":"062", "no":"A062", "state":2},
+                        {"code":"063", "no":"A063", "state":0},
+                        {"code":"064", "no":"A064", "state":0},
+                        {"code":"065", "no":"A065", "state":2},
+                        {"code":"066", "no":"A066", "state":0},
+                        {"code":"067", "no":"A067", "state":1},
+                        {"code":"068", "no":"A068", "state":2},
+                        {"code":"069", "no":"A069", "state":2},
+                        {"code":"070", "no":"A070", "state":2},
+                        {"code":"071", "no":"A071", "state":0},
+                        {"code":"072", "no":"A072", "state":1},
+                        {"code":"073", "no":"A073", "state":2},
+                        {"code":"074", "no":"A074", "state":0},
+                        {"code":"075", "no":"A075", "state":1},
+                        {"code":"076", "no":"A076", "state":2},
+                        {"code":"077", "no":"A077", "state":1},
+                        {"code":"078", "no":"A078", "state":2},
+                        {"code":"079", "no":"A079", "state":0},
+                        {"code":"080", "no":"A080", "state":1},
+                        {"code":"081", "no":"A081", "state":0},
+                        {"code":"082", "no":"A082", "state":2},
+                        {"code":"083", "no":"A083", "state":2},
+                        {"code":"084", "no":"A084", "state":2},
+                        {"code":"085", "no":"A085", "state":1},
+                        {"code":"086", "no":"A086", "state":1},
+                        {"code":"087", "no":"A087", "state":0},
+                        {"code":"088", "no":"A088", "state":0},
+                        {"code":"089", "no":"A089", "state":2},
+                        {"code":"090", "no":"A090", "state":1},
+                        {"code":"091", "no":"A091", "state":1},
+                        {"code":"092", "no":"A092", "state":2},
+                        {"code":"093", "no":"A093", "state":2},
+                        {"code":"094", "no":"A094", "state":2},
+                        {"code":"095", "no":"A095", "state":1},
+                        {"code":"096", "no":"A096", "state":1},
+                        {"code":"097", "no":"A097", "state":2},
+                        {"code":"098", "no":"A098", "state":2},
+                        {"code":"099", "no":"A099", "state":2},
+                        {"code":"100", "no":"A100", "state":0},
+                        {"code":"101", "no":"A101", "state":1},
+                        {"code":"102", "no":"A102", "state":2},
+                        {"code":"103", "no":"A103", "state":1},
+                        {"code":"104", "no":"A104", "state":2},
+                        {"code":"105", "no":"A105", "state":2},
+                        {"code":"106", "no":"A106", "state":0},
+                        {"code":"107", "no":"A107", "state":0},
+                        {"code":"108", "no":"A108", "state":1},
+                        {"code":"109", "no":"A109", "state":2},
+                        {"code":"110", "no":"A110", "state":0},
+                        {"code":"111", "no":"A111", "state":1},
+                        {"code":"112", "no":"A112", "state":1},
+                        {"code":"113", "no":"A113", "state":0},
+                        {"code":"114", "no":"A114", "state":0},
+                        {"code":"115", "no":"A115", "state":0},
+                        {"code":"116", "no":"A116", "state":0},
+                        {"code":"117", "no":"A117", "state":2},
+                        {"code":"118", "no":"A118", "state":0},
+                        {"code":"119", "no":"A119", "state":2},
+                        {"code":"120", "no":"A120", "state":1},
+                        {"code":"121", "no":"A121", "state":0},
+                        {"code":"122", "no":"A122", "state":0},
+                        {"code":"123", "no":"A123", "state":2},
+                        {"code":"124", "no":"A124", "state":1},
+                        {"code":"125", "no":"A125", "state":2},
+                        {"code":"126", "no":"A126", "state":0},
+                        {"code":"127", "no":"A127", "state":0},
+                        {"code":"128", "no":"A128", "state":1},
+                        {"code":"129", "no":"A129", "state":1},
+                        {"code":"130", "no":"A130", "state":1},
+                        {"code":"131", "no":"A131", "state":1},
+                        {"code":"132", "no":"A132", "state":1},
+                        {"code":"133", "no":"A133", "state":2},
+                        {"code":"134", "no":"A134", "state":1},
+                        {"code":"135", "no":"A135", "state":1}
                     ],
                     "level": 5
                 },
-                floorData: []
+                floorData: [],
+                selectItem: '',
+                seatBaseInfo: [
+                    //第一层
+                    {code: '041', class: 'rotate90', top: '1%', left: '3%'},
+                    {code: '042', class: 'rotate90', top: '6.6%', left: '3%'},
+                    {code: '043', class: 'rotate90', top: '12.2%', left: '3%'},
+                    {code: '035', class: 'rotate270', top: '1%', left: '12%'},
+                    {code: '036', class: 'rotate270', top: '6.6%', left: '12%'},
+                    {code: '037', class: 'rotate270', top: '12.2%', left: '12%'},
+
+                    {code: '029', class: 'rotate90', top: '1%', left: '22%'},
+                    {code: '030', class: 'rotate90', top: '6.6%', left: '22%'},
+                    {code: '031', class: 'rotate90', top: '12.2%', left: '22%'},
+                    {code: '023', class: 'rotate270', top: '1%', left: '30%'},
+                    {code: '024', class: 'rotate270', top: '6.6%', left: '30%'},
+                    {code: '025', class: 'rotate270', top: '12.2%', left: '30%'},
+
+                    {code: '018', class: 'rotate90', top: '6.6%', left: '40%'},
+                    {code: '019', class: 'rotate90', top: '12.2%', left: '40%'},
+                    {code: '013', class: 'rotate270', top: '6.6%', left: '48.4%'},
+                    {code: '014', class: 'rotate270', top: '12.2%', left: '48.4%'},
+
+                    {code: '007', class: 'rotate90', top: '1%', left: '58.5%'},
+                    {code: '008', class: 'rotate90', top: '6.6%', left: '58.5%'},
+                    {code: '009', class: 'rotate90', top: '12.2%', left: '58.5%'},
+                    {code: '001', class: 'rotate270', top: '1%', left: '66.8%'},
+                    {code: '002', class: 'rotate270', top: '6.6%', left: '66.8%'},
+                    {code: '003', class: 'rotate270', top: '12.2%', left: '66.8%'},
+
+
+                    //第二层
+                    {code: '044', class: 'rotate90', top: '21.5%', left: '3%'},
+                    {code: '045', class: 'rotate90', top: '27.1%', left: '3%'},
+                    {code: '046', class: 'rotate90', top: '32.7%', left: '3%'},
+                    {code: '038', class: 'rotate270', top: '21.5%', left: '12%'},
+                    {code: '039', class: 'rotate270', top: '27.1%', left: '12%'},
+                    {code: '040', class: 'rotate270', top: '32.7%', left: '12%'},
+
+                    {code: '032', class: 'rotate90', top: '21.5%', left: '22%'},
+                    {code: '033', class: 'rotate90', top: '27.1%', left: '22%'},
+                    {code: '034', class: 'rotate90', top: '32.7%', left: '22%'},
+                    {code: '026', class: 'rotate270', top: '21.5%', left: '30%'},
+                    {code: '027', class: 'rotate270', top: '27.1%', left: '30%'},
+                    {code: '028', class: 'rotate270', top: '32.7%', left: '30%'},
+
+                    {code: '020', class: 'rotate90', top: '21.5%', left: '40%'},
+                    {code: '021', class: 'rotate90', top: '27.1%', left: '40%'},
+                    {code: '022', class: 'rotate90', top: '32.7%', left: '40%'},
+                    {code: '015', class: 'rotate270', top: '21.5%', left: '48.4%'},
+                    {code: '016', class: 'rotate270', top: '27.1%', left: '48.4%'},
+                    {code: '017', class: 'rotate270', top: '32.7%', left: '48.4%'},
+
+                    {code: '010', class: 'rotate90', top: '21.5%', left: '58.5%'},
+                    {code: '011', class: 'rotate90', top: '27.1%', left: '58.5%'},
+                    {code: '012', class: 'rotate90', top: '32.7%', left: '58.5%'},
+                    {code: '004', class: 'rotate270', top: '21.5%', left: '68.8%'},
+                    {code: '005', class: 'rotate270', top: '27.1%', left: '68.8%'},
+                    {code: '006', class: 'rotate270', top: '32.7%', left: '68.8%'},
+
+
+                    //第三层
+                    {code: '049', class: 'rotate90', top: '41.2%', left: '3%'},
+                    {code: '050', class: 'rotate90', top: '46.2%', left: '3%'},
+                    {code: '047', class: 'rotate90', top: '41.2%', left: '10%'},
+                    {code: '048', class: 'rotate90', top: '46.2%', left: '10%'},
+
+
+                    //第四层
+                    {code: '129', class: '', top: '73.5%', left: '3.5%'},
+                    {code: '128', class: '', top: '73.5%', left: '11.5%'},
+
+                    {code: '131', class: 'rotate180', top: '77.9%', left: '3.5%'},
+                    {code: '130', class: 'rotate180', top: '77.9%', left: '11.5%'},
+                    {code: '133', class: '', top: '84.6%', left: '3.5%'},
+                    {code: '132', class: '', top: '84.6%', left: '11.5%'},
+
+                    {code: '135', class: 'rotate180', top: '88.8%', left: '3.5%'},
+                    {code: '134', class: 'rotate180', top: '88.8%', left: '11.5%'},
+
+                    //第五层1
+                    {code: '057', class: '', top: '41%', left: '23.3%'},
+                    {code: '056', class: '', top: '41%', left: '30.3%'},
+                    {code: '055', class: '', top: '41%', left: '37.3%'},
+                    {code: '054', class: '', top: '41%', left: '44.3%'},
+                    {code: '053', class: '', top: '41%', left: '51.3%'},
+                    {code: '052', class: '', top: '41%', left: '58.3%'},
+                    {code: '051', class: '', top: '41%', left: '65.3%'},
+
+                    //第五层2
+                    {code: '064', class: 'rotate180', top: '46.5%', left: '23.3%'},
+                    {code: '063', class: 'rotate180', top: '46.5%', left: '30.3%'},
+                    {code: '062', class: 'rotate180', top: '46.5%', left: '37.3%'},
+                    {code: '061', class: 'rotate180', top: '46.5%', left: '44.3%'},
+                    {code: '060', class: 'rotate180', top: '46.5%', left: '51.3%'},
+                    {code: '059', class: 'rotate180', top: '46.5%', left: '58.3%'},
+                    {code: '058', class: 'rotate180', top: '46.5%', left: '65.3%'},
+
+                    {code: '071', class: '', top: '52.9%', left: '23.3%'},
+                    {code: '070', class: '', top: '52.9%', left: '30.3%'},
+                    {code: '069', class: '', top: '52.9%', left: '37.3%'},
+                    {code: '068', class: '', top: '52.9%', left: '44.3%'},
+                    {code: '067', class: '', top: '52.9%', left: '51.3%'},
+                    {code: '066', class: '', top: '52.9%', left: '58.3%'},
+                    {code: '065', class: '', top: '52.9%', left: '65.3%'},
+
+                    //第五层3
+                    {code: '078', class: 'rotate180', top: '56.8%', left: '23.3%'},
+                    {code: '077', class: 'rotate180', top: '56.8%', left: '30.3%'},
+                    {code: '076', class: 'rotate180', top: '56.8%', left: '37.3%'},
+                    {code: '075', class: 'rotate180', top: '56.8%', left: '44.3%'},
+                    {code: '074', class: 'rotate180', top: '56.8%', left: '51.3%'},
+                    {code: '073', class: 'rotate180', top: '56.8%', left: '58.3%'},
+                    {code: '072', class: 'rotate180', top: '56.8%', left: '65.3%'},
+
+                    {code: '085', class: '', top: '62.9%', left: '23.3%'},
+                    {code: '084', class: '', top: '62.9%', left: '30.3%'},
+                    {code: '083', class: '', top: '62.9%', left: '37.3%'},
+                    {code: '082', class: '', top: '62.9%', left: '44.3%'},
+                    {code: '081', class: '', top: '62.9%', left: '51.3%'},
+                    {code: '080', class: '', top: '62.9%', left: '58.3%'},
+                    {code: '079', class: '', top: '62.9%', left: '65.3%'},
+
+                    //第五层4
+                    {code: '092', class: 'rotate180', top: '67%', left: '23.3%'},
+                    {code: '091', class: 'rotate180', top: '67%', left: '30.3%'},
+                    {code: '090', class: 'rotate180', top: '67%', left: '37.3%'},
+                    {code: '089', class: 'rotate180', top: '67%', left: '44.3%'},
+                    {code: '088', class: 'rotate180', top: '67%', left: '51.3%'},
+                    {code: '087', class: 'rotate180', top: '67%', left: '58.3%'},
+                    {code: '086', class: 'rotate180', top: '67%', left: '65.3%'},
+
+                    {code: '099', class: '', top: '73.2%', left: '23.3%'},
+                    {code: '098', class: '', top: '73.2%', left: '30.3%'},
+                    {code: '097', class: '', top: '73.2%', left: '37.3%'},
+                    {code: '096', class: '', top: '73.2%', left: '44.3%'},
+                    {code: '095', class: '', top: '73.2%', left: '51.3%'},
+                    {code: '094', class: '', top: '73.2%', left: '58.3%'},
+                    {code: '093', class: '', top: '73.2%', left: '65.3%'},
+
+                    //第五层5
+                    {code: '106', class: 'rotate180', top: '77.3%', left: '23.3%'},
+                    {code: '105', class: 'rotate180', top: '77.3%', left: '30.3%'},
+                    {code: '104', class: 'rotate180', top: '77.3%', left: '37.3%'},
+                    {code: '103', class: 'rotate180', top: '77.3%', left: '44.3%'},
+                    {code: '102', class: 'rotate180', top: '77.3%', left: '51.3%'},
+                    {code: '101', class: 'rotate180', top: '77.3%', left: '58.3%'},
+                    {code: '100', class: 'rotate180', top: '77.3%', left: '65.3%'},
+
+                    {code: '113', class: '', top: '83.2%', left: '23.3%'},
+                    {code: '112', class: '', top: '83.2%', left: '30.3%'},
+                    {code: '111', class: '', top: '83.2%', left: '37.3%'},
+                    {code: '110', class: '', top: '83.2%', left: '44.3%'},
+                    {code: '109', class: '', top: '83.2%', left: '51.3%'},
+                    {code: '108', class: '', top: '83.2%', left: '58.3%'},
+                    {code: '107', class: '', top: '83.2%', left: '65.3%'},
+
+                    //第五层6
+                    {code: '120', class: 'rotate180', top: '87.5%', left: '23.3%'},
+                    {code: '119', class: 'rotate180', top: '87.5%', left: '30.3%'},
+                    {code: '118', class: 'rotate180', top: '87.5%', left: '37.3%'},
+                    {code: '117', class: 'rotate180', top: '87.5%', left: '44.3%'},
+                    {code: '116', class: 'rotate180', top: '87.5%', left: '51.3%'},
+                    {code: '115', class: 'rotate180', top: '87.5%', left: '58.3%'},
+                    {code: '114', class: 'rotate180', top: '87.5%', left: '65.3%'},
+
+                    {code: '127', class: '', top: '93.6%', left: '23.3%'},
+                    {code: '126', class: '', top: '93.6%', left: '30.3%'},
+                    {code: '125', class: '', top: '93.6%', left: '37.3%'},
+                    {code: '124', class: '', top: '93.6%', left: '44.3%'},
+                    {code: '123', class: '', top: '93.6%', left: '51.3%'},
+                    {code: '122', class: '', top: '93.6%', left: '58.3%'},
+                    {code: '121', class: '', top: '93.6%', left: '65.3%'},
+
+                ],
+                seatReservedHint: false,
+                seatReserving: false
             }
         },
         methods: {
-            getClass (code) {
+            getClass(item) {
                 const that = this;
                 let seatInfo = that.seatData.result;
                 let status = ''
 
                 let isHave = false;
-                for(let i in seatInfo) {
+                for (let i in seatInfo) {
                     let x = seatInfo[i]
-                    if(x.code == code) {
+
+                    if (x.code == item.code) {
                         status = x.state
                         isHave = true;
                         break
                     }
                 }
-
+                var classes = {}
                 if (isHave) {
-                    return {
+                    classes = {
                         'seat-status-zero': status == 0,
                         'seat-status-one': status == 1,
                         'seat-status-two': status == 2,
                         'seat-status-three': status == 3,
-                        'seat-status-four': status == 4
+                        'seat-status-four': status == 4,
+                        'selected': this.selectItem == item.code
                     }
                 } else {
-                    return {
+                    classes = {
                         'seat-status-one': false
                     }
                 }
 
+                classes[item.class] = true
+                return classes
 
             },
-
-            floorChoose2() {
-                const that = this;
-               let res = {
-                   "msg": "成功",
-                   "code": "0",
-                   "spenttime": 69,
-                   "result": [
-                       {
-                           "code": "0001",
-                           "name": "10B 第五层"
-                       },
-                       {
-                           "code": "0002",
-                           "name": "10B 第六层"
-                       },
-                       {
-                           "code": "0003",
-                           "name": "10B 第七层"
-                       },
-                       {
-                           "code": "0004",
-                           "name": "13B 第5层"
-                       }
-                   ],
-                   "level": 5
-               };
-
-                res.result.forEach(x => {
-                    let tuple = {key: x.name, value: x.code}
-                    that.floorData.push(tuple)
-                });
-
-                dd.ready(() => {
-                    dd.biz.util.chosen({
-                        source: that.floorData,
-                        selectedKey: that.floorSelectedKey == null ? that.floorData[0].key : that.floorSelectedKey, // 默认选中的key
-                        onSuccess: function (result) {
-                            //onSuccess将在点击完成之后回调
-                            /*
-                            {
-                                key: '选项2',
-                                value: '234'
-                            }
-                            */
-                            that.isShowData = false; //取消默认空白页
-
-                            that.floorShowMsg = result.key; //更新楼层选择提示
-                            that.floorSelectedKey = result.key; //更新用户当前选择
-                            that.floorSelect = result.value //记录用户选择的Code
-
-                            //从新计算高度
-                            that.resizeEvent();
-                        },
-                        onFail: function (err) {
-                            alert("floorChoose Error")
-                        }
-                    })
-                })
-
-            },
-
             floorChoose() {
                 const that = this
                 ApiExample.storeyList().then(res => {
@@ -401,7 +534,7 @@
                     dd.ready(() => {
                         dd.biz.util.chosen({
                             source: that.floorData,
-                            selectedKey: that.floorSelectedKey == null ? that.floorData[0].key : that.floorSelectedKey, // 默认选中的key
+                            selectedKey: that.floorSelectedKey == null ? null : that.floorSelectedKey, // 默认选中的key
                             onSuccess: function (result) {
                                 //onSuccess将在点击完成之后回调
                                 /*
@@ -418,8 +551,8 @@
 
 
                                 //获取座位布局图数据
-                                ApiExample.seatList({code: that.floorSelect, selectDate: that.dateMsg}).then(res => {
-                                    that.seatData = res;
+                                ApiExample.seatList({code: that.floorSelect, selectDate: that.selectDate}).then(res => {
+                                    // that.seatData = res;
                                 })
 
                                 //从新计算高度
@@ -437,27 +570,25 @@
                     alert(err)
                 })
             },
-
             dateChoose() {
                 const that = this;
                 dd.ready(() => {
                     dd.biz.util.datepicker({
                         format: 'yyyy-MM-dd',//注意：format只支持android系统规范，即2015-03-31格式为yyyy-MM-dd
-                        value: that.dateMsg, //默认显示日期
+                        value: that.selectDate, //默认显示日期
                         onSuccess: function (result) {
                             //onSuccess将在点击完成之后回调
                             /*{
                                 value: "2015-02-10"
                             }
                             */
-                            that.dateMsg = result.value
+                            that.selectDate = result.value
                         },
                         onFail: function (err) {
                         }
                     })
                 });
             },
-
             resizeEvent() {
                 this.$nextTick(() => {
                     document.getElementsByClassName("chooseseat")[0].style.height = (document.documentElement.clientHeight -
@@ -466,27 +597,53 @@
                         document.getElementsByClassName("footer")[0].offsetHeight -
                         10) + 'px'
                     var choosefloors = document.getElementsByClassName("choosefloor")
-                    for (var i=0; i<choosefloors.length; i++) {
+                    for (var i = 0; i < choosefloors.length; i++) {
                         choosefloors[i].style.height = ((1299 / 1126) * choosefloors[i].clientWidth) + 'px'
                     }
+                    document.getElementsByClassName("seat-reserving-choose")[0].style.minWidth =
+                        (document.getElementsByClassName("seat-reserving-choose-date").length * 7.4 + 0.6) + 'rem'
                 })
             },
-
-            init () {
+            whenClickSeat(code) {
                 const that = this;
-                let seatInfo = that.seatData.result;
-                seatInfo.forEach(x => {
-                    let id = x.code;
-                    let ele = document.getElementById(id);
-                    switch (x.state) {
-                        case 0: ele.classList.add("seat-status-zero"); break;
-                        case 1: ele.classList.add("seat-status-one"); break;
-                        case 2: ele.classList.add("seat-status-two"); break;
-                        case 3: ele.classList.add("seat-status-three"); break;
-                        case 4: ele.classList.add("seat-status-four"); break;
-                        default: break;
+                let seatStatus = this.getSeatStatus(code);
+                if (seatStatus == 0) {
+                    this.selectItem = code;
+                } else if (seatStatus == 2) {
+                    // //show seat hint
+                    // //1. get seat data from server
+                    ApiExample.getReservationStaff({selectDate: that.selectDate, code: code}).then(res => {
+                        //2. show this seat data
+                        let p = res.result;
+                        alert(p.no + "-" + p.userName + "-" + p.departmentName);
+                    }).catch(err => {
+
+                    })
+
+                    // let res = {
+                    //     "msg": "成功",
+                    //     "code": "0",
+                    //     "spenttime": 69,
+                    //     "result": {
+                    //         "no": "A001",
+                    //         "userName": "杨铭森",
+                    //         "departmentName": "流程IT中心"
+                    //     },
+                    //     "level": 5
+                    // }
+                    // let p = res.result;
+                    // alert(p.no+"-"+p.userName+"-"+p.departmentName);
+
+                }
+            },
+            getSeatStatus(code) {//获取座位状态
+                const that = this;
+                let tmpData = that.seatData.result;
+                for (let one of tmpData) {
+                    if (one.code == code) {
+                        return one.state;
                     }
-                })
+                }
             }
         },
         mounted() {
@@ -494,25 +651,153 @@
             //     //this.isShowData = true
             //     //从后端查询座位信息，然后显示座位图
             // }
-            window.addEventListener('resize',this.resizeEvent,false);
+            window.addEventListener('resize', this.resizeEvent, false);
             this.resizeEvent();
             // this.init()
+
 
         }
     };
 </script>
 
 <style lang="less" scoped>
+    //公共样式 全局样式 个性化样式
+
+    //座位预定中 css
+    .seat-reserving {
+        position: absolute;
+        width: 100%;
+        bottom: 0px;
+        margin-left: -2%;
+
+        .seat-reserving-top {
+            border-top: 1px solid #E36386;
+            border-radius: 5px 5px 0 0;
+            background-color: #E36386;
+            /*height: 3rem;*/
+
+            .seat-reserving-top-left {
+                color: #fff;
+                font-size: 1.2rem;
+                text-align: left;
+                padding-left: 4%;
+                padding-top: 4%;
+                padding-bottom: 4%;
+            }
+            .seat-reserving-top-right {
+                float: right;
+                padding-top: 2%;
+                padding-bottom: 2%;
+                background-color: #fff;
+                color: #E36386;
+                border-radius: 7px;
+                margin-top: 3%;
+                margin-bottom: 3%;
+                margin-right: 3%;
+                width: 90px;
+
+                .seat-reserving-top-right-button {
+                    font-size: 1rem;
+                    border-radius: 5px;
+                    background-color: #fff;
+                    color: #E36386;
+                    width: 89px;
+                    margin-right: 0.2rem;
+                }
+            }
+        }
+    }
+
+    //
+    .seat-reserving .reserving-scroll {
+        width: 100%;
+        overflow-x: scroll;
+        .seat-reserving-choose {
+            background-color: #FDE6EA;
+            height: 3.8rem;
+        }
+
+        .seat-reserving-choose-date{
+            display: inline-block;
+            position: relative;
+            height: 3rem;
+            width: 7rem;
+            background-color: #fff;
+            background-repeat: no-repeat;
+            background-size: 18%;
+            top: 11%;
+            border-radius: 5px;
+            background-position-x: center;
+            background-position-y: 10%;
+            padding-top: 1.5rem;
+            margin: 0 0.2rem;
+            box-sizing: border-box;
+        }
+    }
+
+    .seat-icon-checking {
+        background-image: url('../assets/images/icon_checking.png');
+    }
+    .seat-icon-reserved {
+        background-image: url('../assets/images/icon_reserved.png');
+    }
+    .seat-icon-choosable {
+        background-image: url('../assets/images/icon_choosable.png');
+    }
+    .seat-icon-dischoosable {
+        background-image: url('../assets/images/icon_dischoosable.png');
+    }
+
+
+   //已预订提示样式
+   .seat-reserved-hint {
+       position: absolute;
+       width: 100%;
+       bottom: 0px;
+       background-color: #fff;
+       border-top: 1px solid #cccccc;
+       border-radius: 10px;
+       color: #00aea9;
+
+       margin-left: -2%;
+
+   }
+   .seat-reserved-hint-dept {
+       background-color:#e6f6f4;
+       width: 100%;
+       border-top: 1px solid #c3eff4;
+       border-bottom: 1px solid #c3eff4;
+       font-size: 1.1rem;
+
+       padding-top: 0.5rem;
+   }
+
+   .bg-purple11  {
+       background-image: url('../assets/images/icon_13.png');
+       background-repeat: no-repeat;
+       background-size: 1.8rem;
+       height: 2rem;
+       background-position-y: -31%;
+
+       text-align: left ;
+       padding-left: 14%;
+       margin-left: 27%;
+   }
+
+
+
     .home {
         .filterarea {
 
         }
     }
+
     .chooseseat {
         position: relative;
         width: 100%;
         overflow-x: scroll;
         overflow-y: scroll;
+
         .choosefloor {
             position: absolute;
             background-repeat: no-repeat;
@@ -553,19 +838,28 @@
     }
 
     //状态图
-    .seat-status-zero {//可选
+    .seat-status-zero { //可选
         background-image: url('../assets/images/icon_1.png');
     }
-    .seat-status-one {//不可选
+
+    //状态图
+    .seat-status-zero.selected { //可选 => 当前选中
+        background-image: url('../assets/images/icon_9.png');
+    }
+
+    .seat-status-one { //不可选
         background-image: url('../assets/images/icon_10.png');
     }
-    .seat-status-two {//已被预订
-        background-image: url('../assets/images/icon_7.png');
+
+    .seat-status-two { //已被预订
+        background-image: url('../assets/images/icon_8.png');
     }
-    .seat-status-three {//我的座位
+
+    .seat-status-three { //我的座位
         background-image: url('../assets/images/icon_6.png');
     }
-    .seat-status-four {//当前选中
+
+    .seat-status-four { //当前选中
         background-image: url('../assets/images/icon_9.png');
     }
 
@@ -573,9 +867,11 @@
     .user-seat.rotate90 {
         transform: rotate(90deg);
     }
+
     .user-seat.rotate270 {
         transform: rotate(270deg);
     }
+
     .user-seat.rotate180 {
         transform: rotate(180deg);
     }
@@ -589,8 +885,9 @@
 
     .filterarea-date-input /deep/ .el-input__inner {
         border: 1px solid #C3EFF4;
-        color: #00afa5;
         border-radius: 10px;
+        color: #00afa5;
+
     }
 
     //上图标
@@ -650,10 +947,11 @@
     //座位选择区域style
     .choosearea {
         margin-top: 0.6rem;
+        position: relative;
     }
 
     //座位提示style
-    .bg-purple {
+    .choosearea-hint-seat {
         background-size: 1.8rem;
         background-repeat: no-repeat;
         text-align: left;
@@ -663,8 +961,9 @@
         /* line-height: 1rem; */
         height: 2rem;
         padding-top: 0.4rem;
-        margin-left:0.4rem;
+        margin-left: 0.4rem;
     }
+
     .bg-purple1 {
         background-image: url('../assets/images/icon_1.png');
     }

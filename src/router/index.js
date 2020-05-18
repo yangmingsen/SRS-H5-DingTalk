@@ -8,9 +8,12 @@ const routes = [
   {
     path: '/:sysCode(\\w+)/',
     component: () => import("../views/Index"),
+    redirect: "home",
     children: [
       {
-        path: "",
+        // path: "",
+        name: 'home',
+        path: '',
         component: () => import("../views/Home"),
         // redirect: {name: "default-blank"},
         // children: [
@@ -25,6 +28,11 @@ const routes = [
         //     component: () => import("../components/UserChoose")
         //   }
         // ]
+      },
+      {
+        name: 'login',
+        path: 'login',
+        component: () => import("../views/Login"),
       },
       {
         name: 'my-reserve',

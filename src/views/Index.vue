@@ -13,8 +13,6 @@
 
 <script>
     import Footer from "./Footer";
-    import * as dd from 'dingtalk-jsapi';
-    import { ApiExample } from "../api/example"
     export default {
         name: "Index",
         components: {
@@ -22,26 +20,12 @@
         },
         data() {
             return {
-                resMsg: null,
-                code: null,
             }
         },
         methods: {
-            getCode() {
-                const that = this
-                dd.ready( () => {
-                    dd.runtime.permission.requestAuthCode({
-                        corpId: 'dingfeefdd8ead408b2df5bf40eda33b7ba0', // 企业id
-                        onSuccess: async function (info) {
-                            that.code = info.code // 通过该免登授权码可以获取用户身份
-                            let res = await ApiExample.login({code: that.code});
-                            that.resMsg = res;
-                        }});
-                })
-            }
         },
         mounted() {
-            this.getCode();
+
         }
     }
 </script>
