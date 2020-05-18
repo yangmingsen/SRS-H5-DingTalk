@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="home" @click="whenClickHome()">
         <div class="filterarea">
             <div class="filterarea-date" @click="dateChoose">
                 <el-input
@@ -53,34 +53,35 @@
             <div class="chooseseat">
                 <div class="choosefloor choosearea-10B5" v-if="floorSelect == 1">
                     <!--                   第一层-->
-                    <div v-for="item in seatBaseInfo" :index="item.code" class="user-seat" :class="getClass(item)"  @click="whenClickSeat(item.code)" :style="{top: item.top, left: item.left}"></div>
+                    <div v-for="item in seatBaseInfo" :index="item.code" class="user-seat" :class="getClass(item)"
+                         @click="whenClickSeat(item.code, $event)" :style="{top: item.top, left: item.left}"></div>
                 </div>
                 <div class="choosefloor choosearea-10B6" v-if="floorSelect == 2">10b6</div>
                 <div class="choosefloor choosearea-10B7" v-if="floorSelect == 3">10b7</div>
                 <div class="choosefloor choosearea-13B5" v-if="floorSelect == 4">13b5</div>
 
-                </div>
-
             </div>
 
-            <!--                座位预定提示-->
-            <div class="seat-reserved-hint" v-if="seatReservedHint">
-                <el-row>
-                    <el-col :span="24">
-                        <div class="grid-content bg-purple" style="font-size: 1.5rem; font-weight: bold">003</div>
-                    </el-col>
-                </el-row>
-                <el-row class="seat-reserved-hint-dept">
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple bg-purple11">杨铭森</div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple ">流程IT中心</div>
-                    </el-col>
-                </el-row>
-            </div>
-            <!--                座位预定中-->
-        <div class="seat-reserving" v-if="seatReserving">
+        </div>
+
+        <!--                座位预定提示-->
+        <div class="seat-reserved-hint" v-if="seatReservedHint">
+            <el-row>
+                <el-col :span="24">
+                    <div class="grid-content bg-purple" style="font-size: 1.5rem; font-weight: bold">{{seatReservedHintData.no}}</div>
+                </el-col>
+            </el-row>
+            <el-row class="seat-reserved-hint-dept">
+                <el-col :span="12">
+                    <div class="grid-content bg-purple bg-purple11">{{seatReservedHintData.userName}}</div>
+                </el-col>
+                <el-col :span="12">
+                    <div class="grid-content bg-purple ">{{seatReservedHintData.departmentName}}</div>
+                </el-col>
+            </el-row>
+        </div>
+        <!--                座位预定中-->
+        <div class="seat-reserving" v-if="seatReserving" @click.stop="">
             <div class="seat-reserving-top">
                 <el-row>
                     <el-col :span="12">
@@ -94,53 +95,9 @@
                 </el-row>
             </div>
             <div class="reserving-scroll">
-                    <div class="seat-reserving-choose">
-                        <div class="seat-reserving-choose-date seat-icon-checking">
-                            5月18日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-choosable">
-                            5月19日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-choosable">
-                            5月20日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-dischoosable">
-                            5月21日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-choosable">
-                            5月22日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-choosable">
-                            5月23日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-dischoosable">
-                            5月24日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-choosable">
-                            5月25日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-checking">
-                            5月26日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-choosable">
-                            5月27日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-choosable">
-                            5月28日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-dischoosable">
-                            5月29日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-choosable">
-                            5月30日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-choosable">
-                            5月31日
-                        </div>
-                        <div class="seat-reserving-choose-date seat-icon-dischoosable">
-                            6月1日
-                        </div>
-                    </div>
+                <div class="seat-reserving-choose">
+                    <div v-for="item of seatReservingData" class="seat-reserving-choose-date" :class="getClass2(item)" @click="whenUserClickDate(item)">{{item.seatDate}}</div>
+                </div>
             </div>
         </div>
 
@@ -168,6 +125,7 @@
                     "msg": "成功",
                     "code": "0",
                     "spenttime": 69,
+                    //状态：0-可选；1-不可选；2-已被预订；3-我的座位
                     "result": [
                         {"code":"001", "no":"A001", "state":0},
                         {"code":"002", "no":"A002", "state":1},
@@ -483,8 +441,54 @@
                     {code: '121', class: '', top: '93.6%', left: '65.3%'},
 
                 ],
-                seatReservedHint: false,
-                seatReserving: false
+                seatReservedHint: false, //弹窗：已被预定人信息
+                seatReservedHintData: {
+                    no: "A001",
+                    userName: "杨铭森",
+                    departmentName: "流程IT中心"
+                },
+                seatReserving: false, //弹窗：用户点击可选座位
+                //：0-可选；1-已被预订；2-当前用户已预定
+                //服务器返回数据
+                seatReservingData: [
+                    {
+                        "seatDate": "2020-4-15",
+                        "state": 0
+                    },
+                    {
+                        "seatDate": "2020-4-16",
+                        "state": 1
+                    },
+                    {
+                        "seatDate": "2020-4-17",
+                        "state": 0
+                    },
+                    {
+                        "seatDate": "2020-4-18",
+                        "state": 2
+                    },
+                    {
+                        "seatDate": "2020-4-19",
+                        "state": 1
+                    },
+                    {
+                        "seatDate": "2020-4-20",
+                        "state": 0
+                    },
+                    {
+                        "seatDate": "2020-4-21",
+                        "state": 0
+                    },
+                    {
+                        "seatDate": "2020-4-22",
+                        "state": 0
+                    }
+                ],
+                //用户当前选择数据
+                seatReservingUserChooseData: {
+                    reservationDates: [],
+                    code: ""
+                }
             }
         },
         methods: {
@@ -519,10 +523,43 @@
                     }
                 }
 
-                classes[item.class] = true
+                classes[item.class] = true;
                 return classes
 
             },
+            getClass2(item) {
+                return {
+                    'seat-icon-choosable': item.state == 0,
+                    'seat-icon-dischoosable': item.state == 1,
+                    'seat-icon-reserved': item.state == 2,
+                    'seat-icon-checking': item.state == 3
+                }
+            },
+            whenUserClickDate(item) {
+              let state = item.state;
+              const that = this;
+              if (state == 0) {
+                  item.state = 3;
+                  that.seatReservingUserChooseData.reservationDates.push(item.seatDate);
+              } else if (state == 3) {
+                  item.state =0;
+                  let dates = that.seatReservingUserChooseData.reservationDates;
+                  let idx = -1;
+                  for (let i=0; i<dates.length; i++) {
+                      if (dates[i] == item.seatDate) {
+                        idx = i;
+                        break;
+                      }
+                  }
+
+                  if (idx > -1) {
+                      dates.splice(idx,1);
+                  }
+              }
+              console.log(that.seatReservingUserChooseData);
+
+            },
+
             floorChoose() {
                 const that = this
                 ApiExample.storeyList().then(res => {
@@ -600,42 +637,49 @@
                     for (var i = 0; i < choosefloors.length; i++) {
                         choosefloors[i].style.height = ((1299 / 1126) * choosefloors[i].clientWidth) + 'px'
                     }
+                })
+            },
+            resizeDateWidth () {
+                this.$nextTick(() => {
                     document.getElementsByClassName("seat-reserving-choose")[0].style.minWidth =
                         (document.getElementsByClassName("seat-reserving-choose-date").length * 7.4 + 0.6) + 'rem'
                 })
             },
-            whenClickSeat(code) {
+            whenClickSeat(code, ev) {
+                //ev.stopPropagation() 阻止冒泡  //1.阻止默认事件?
                 const that = this;
-                let seatStatus = this.getSeatStatus(code);
-                if (seatStatus == 0) {
-                    this.selectItem = code;
-                } else if (seatStatus == 2) {
+                let seat = this.getSomeSeatInfo(code);
+                if (seat.state == 0) { //if可选
+                    ev.stopPropagation();
+                    that.selectItem = code; //更新选中图标
+                    that.seatReservingUserChooseData.code = seat.no; //设置当前选中座位的座位号
+                    that.seatReserving = true; // 打开选择座位日期的弹框
+                } else if (seat.state == 2) { //if 已被预定
+                    ev.stopPropagation();
                     // //show seat hint
                     // //1. get seat data from server
-                    ApiExample.getReservationStaff({selectDate: that.selectDate, code: code}).then(res => {
-                        //2. show this seat data
-                        let p = res.result;
-                        alert(p.no + "-" + p.userName + "-" + p.departmentName);
-                    }).catch(err => {
+                    // ApiExample.getReservationStaff({selectDate: that.selectDate, code: code}).then(res => {
+                    //     //2. show this seat data
+                    //     let p = res.result;
+                    //     alert(p.no + "-" + p.userName + "-" + p.departmentName);
+                    // }).catch(err => {
+                    //
+                    // })
+                    that.seatReservedHint = true; //打开弹窗
+                }
+                this.resizeDateWidth()
+            },
 
-                    })
-
-                    // let res = {
-                    //     "msg": "成功",
-                    //     "code": "0",
-                    //     "spenttime": 69,
-                    //     "result": {
-                    //         "no": "A001",
-                    //         "userName": "杨铭森",
-                    //         "departmentName": "流程IT中心"
-                    //     },
-                    //     "level": 5
-                    // }
-                    // let p = res.result;
-                    // alert(p.no+"-"+p.userName+"-"+p.departmentName);
-
+            getSomeSeatInfo(code) {
+                const that = this;
+                let tmpData = that.seatData.result;
+                for (let one of tmpData) {
+                    if (one.code == code) {
+                        return one;
+                    }
                 }
             },
+
             getSeatStatus(code) {//获取座位状态
                 const that = this;
                 let tmpData = that.seatData.result;
@@ -644,6 +688,10 @@
                         return one.state;
                     }
                 }
+            },
+            whenClickHome () { //当点击home页 取消所有弹窗
+                this.seatReserving = false;
+                this.seatReservedHint = false;
             }
         },
         mounted() {
@@ -654,8 +702,6 @@
             window.addEventListener('resize', this.resizeEvent, false);
             this.resizeEvent();
             // this.init()
-
-
         }
     };
 </script>
