@@ -13,12 +13,12 @@ export const ddAPI = {
                     that.code = info.code; // 通过该免登授权码可以获取用户身份
                     await ApiExample.login({code: that.code}).then(res => {
                         if (!res.result.value) { //成功
-
                             that.hidePreloader();
                             router.push({path: returnUrl})
+                            localStorage.setItem("isLogin", 1);
                         } else {
                             dd.device.notification.alert({
-                                message: "登录失败,请重试",
+                                message: "登录失败,请稍后重试",
                                 title: "提示",//可传空
                                 buttonName: "确定",
                                 onSuccess: function () {
@@ -86,4 +86,6 @@ export const ddAPI = {
             }
         })
     }
+
+
 }

@@ -91,7 +91,7 @@ axios.interceptors.response.use(
         //如果登录超时
         let sStauts = res.getResHeaders('session-state');
         if (sStauts == "time-out") {
-            //router.push({ name: 'login', query: { returnurl: router.history.current.fullPath }})
+            router.push({ name: 'login', query: { returnurl: router.history.current.fullPath }})
         }
 
         const showloading = res.getConfig("showLoading");

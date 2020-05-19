@@ -85,10 +85,10 @@
             <div class="seat-reserving-top">
                 <el-row>
                     <el-col :span="12">
-                        <div class="grid-content seat-reserving-top-left">033号座</div>
+                        <div class="grid-content seat-reserving-top-left">{{selectItem}}号座</div>
                     </el-col>
                     <el-col :span="12">
-                        <div class="grid-content seat-reserving-top-right">
+                        <div class="grid-content seat-reserving-top-right" @click="submitUserChooseSeatData">
                             我要预定
                         </div>
                     </el-col>
@@ -96,7 +96,7 @@
             </div>
             <div class="reserving-scroll">
                 <div class="seat-reserving-choose">
-                    <div v-for="item of seatReservingData" class="seat-reserving-choose-date" :class="getClass2(item)" @click="whenUserClickDate(item)">{{item.seatDate}}</div>
+                    <div v-for="item of seatReservingData" class="seat-reserving-choose-date" :class="getClass2(item)" @click="whenUserClickDate(item)">{{showSeatReservingDate(item.seatDate)}}</div>
                 </div>
             </div>
         </div>
@@ -110,164 +110,35 @@
     import * as dd from 'dingtalk-jsapi';
     import {ApiExample} from "../api/example"
     import {ddAPI} from "../api/ddAPI";
+    import {ymsUtil} from "../api/yUtils";
 
     export default {
         name: "Home",
         components: {},
         data() {
             return {
+                //基础类数据
                 selectDate: "2020-05-13", //用户当前选择日期
-                floorShowMsg: "座位所属楼层", //楼层选择信息
-                floorSelectedKey: null,
-                isShowData: false, // true=用户没有选择楼层(默认),   false 用户选择了楼层
+
+                floorShowMsg: "座位所属楼层", //楼层选择显示信息, 默认为"座位所属楼层"
+
+                floorSelectedKey: null, //表示用户选择的楼层，默认为Null
+
+                isShowData: true, // true=用户没有选择楼层(默认),   false 用户选择了楼层
+
                 floorSelect: 1, //1=10b5, 2=10b6, 3=10b7, 4=13b5,
-                seatData: { //座位布局图数据
-                    "msg": "成功",
-                    "code": "0",
-                    "spenttime": 69,
-                    //状态：0-可选；1-不可选；2-已被预订；3-我的座位
-                    "result": [
-                        {"code":"001", "no":"A001", "state":0},
-                        {"code":"002", "no":"A002", "state":1},
-                        {"code":"003", "no":"A003", "state":2},
-                        {"code":"004", "no":"A004", "state":0},
-                        {"code":"005", "no":"A005", "state":2},
-                        {"code":"006", "no":"A006", "state":1},
-                        {"code":"007", "no":"A007", "state":1},
-                        {"code":"008", "no":"A008", "state":2},
-                        {"code":"009", "no":"A009", "state":2},
-                        {"code":"010", "no":"A010", "state":1},
-                        {"code":"011", "no":"A011", "state":2},
-                        {"code":"012", "no":"A012", "state":1},
-                        {"code":"013", "no":"A013", "state":2},
-                        {"code":"014", "no":"A014", "state":0},
-                        {"code":"015", "no":"A015", "state":1},
-                        {"code":"016", "no":"A016", "state":0},
-                        {"code":"017", "no":"A017", "state":1},
-                        {"code":"018", "no":"A018", "state":1},
-                        {"code":"019", "no":"A019", "state":0},
-                        {"code":"020", "no":"A020", "state":0},
-                        {"code":"021", "no":"A021", "state":1},
-                        {"code":"022", "no":"A022", "state":1},
-                        {"code":"023", "no":"A023", "state":0},
-                        {"code":"024", "no":"A024", "state":1},
-                        {"code":"025", "no":"A025", "state":1},
-                        {"code":"026", "no":"A026", "state":2},
-                        {"code":"027", "no":"A027", "state":2},
-                        {"code":"028", "no":"A028", "state":0},
-                        {"code":"029", "no":"A029", "state":0},
-                        {"code":"030", "no":"A030", "state":2},
-                        {"code":"031", "no":"A031", "state":0},
-                        {"code":"032", "no":"A032", "state":2},
-                        {"code":"033", "no":"A033", "state":2},
-                        {"code":"034", "no":"A034", "state":2},
-                        {"code":"035", "no":"A035", "state":2},
-                        {"code":"036", "no":"A036", "state":0},
-                        {"code":"037", "no":"A037", "state":0},
-                        {"code":"038", "no":"A038", "state":3},
-                        {"code":"038", "no":"A038", "state":1},
-                        {"code":"039", "no":"A039", "state":2},
-                        {"code":"040", "no":"A040", "state":2},
-                        {"code":"041", "no":"A041", "state":0},
-                        {"code":"042", "no":"A042", "state":0},
-                        {"code":"043", "no":"A043", "state":0},
-                        {"code":"044", "no":"A044", "state":2},
-                        {"code":"045", "no":"A045", "state":1},
-                        {"code":"046", "no":"A046", "state":2},
-                        {"code":"047", "no":"A047", "state":1},
-                        {"code":"048", "no":"A048", "state":1},
-                        {"code":"049", "no":"A049", "state":0},
-                        {"code":"050", "no":"A050", "state":1},
-                        {"code":"051", "no":"A051", "state":0},
-                        {"code":"052", "no":"A052", "state":0},
-                        {"code":"053", "no":"A053", "state":0},
-                        {"code":"054", "no":"A054", "state":2},
-                        {"code":"055", "no":"A055", "state":1},
-                        {"code":"056", "no":"A056", "state":0},
-                        {"code":"057", "no":"A057", "state":0},
-                        {"code":"058", "no":"A058", "state":0},
-                        {"code":"059", "no":"A059", "state":0},
-                        {"code":"060", "no":"A060", "state":2},
-                        {"code":"061", "no":"A061", "state":2},
-                        {"code":"062", "no":"A062", "state":2},
-                        {"code":"063", "no":"A063", "state":0},
-                        {"code":"064", "no":"A064", "state":0},
-                        {"code":"065", "no":"A065", "state":2},
-                        {"code":"066", "no":"A066", "state":0},
-                        {"code":"067", "no":"A067", "state":1},
-                        {"code":"068", "no":"A068", "state":2},
-                        {"code":"069", "no":"A069", "state":2},
-                        {"code":"070", "no":"A070", "state":2},
-                        {"code":"071", "no":"A071", "state":0},
-                        {"code":"072", "no":"A072", "state":1},
-                        {"code":"073", "no":"A073", "state":2},
-                        {"code":"074", "no":"A074", "state":0},
-                        {"code":"075", "no":"A075", "state":1},
-                        {"code":"076", "no":"A076", "state":2},
-                        {"code":"077", "no":"A077", "state":1},
-                        {"code":"078", "no":"A078", "state":2},
-                        {"code":"079", "no":"A079", "state":0},
-                        {"code":"080", "no":"A080", "state":1},
-                        {"code":"081", "no":"A081", "state":0},
-                        {"code":"082", "no":"A082", "state":2},
-                        {"code":"083", "no":"A083", "state":2},
-                        {"code":"084", "no":"A084", "state":2},
-                        {"code":"085", "no":"A085", "state":1},
-                        {"code":"086", "no":"A086", "state":1},
-                        {"code":"087", "no":"A087", "state":0},
-                        {"code":"088", "no":"A088", "state":0},
-                        {"code":"089", "no":"A089", "state":2},
-                        {"code":"090", "no":"A090", "state":1},
-                        {"code":"091", "no":"A091", "state":1},
-                        {"code":"092", "no":"A092", "state":2},
-                        {"code":"093", "no":"A093", "state":2},
-                        {"code":"094", "no":"A094", "state":2},
-                        {"code":"095", "no":"A095", "state":1},
-                        {"code":"096", "no":"A096", "state":1},
-                        {"code":"097", "no":"A097", "state":2},
-                        {"code":"098", "no":"A098", "state":2},
-                        {"code":"099", "no":"A099", "state":2},
-                        {"code":"100", "no":"A100", "state":0},
-                        {"code":"101", "no":"A101", "state":1},
-                        {"code":"102", "no":"A102", "state":2},
-                        {"code":"103", "no":"A103", "state":1},
-                        {"code":"104", "no":"A104", "state":2},
-                        {"code":"105", "no":"A105", "state":2},
-                        {"code":"106", "no":"A106", "state":0},
-                        {"code":"107", "no":"A107", "state":0},
-                        {"code":"108", "no":"A108", "state":1},
-                        {"code":"109", "no":"A109", "state":2},
-                        {"code":"110", "no":"A110", "state":0},
-                        {"code":"111", "no":"A111", "state":1},
-                        {"code":"112", "no":"A112", "state":1},
-                        {"code":"113", "no":"A113", "state":0},
-                        {"code":"114", "no":"A114", "state":0},
-                        {"code":"115", "no":"A115", "state":0},
-                        {"code":"116", "no":"A116", "state":0},
-                        {"code":"117", "no":"A117", "state":2},
-                        {"code":"118", "no":"A118", "state":0},
-                        {"code":"119", "no":"A119", "state":2},
-                        {"code":"120", "no":"A120", "state":1},
-                        {"code":"121", "no":"A121", "state":0},
-                        {"code":"122", "no":"A122", "state":0},
-                        {"code":"123", "no":"A123", "state":2},
-                        {"code":"124", "no":"A124", "state":1},
-                        {"code":"125", "no":"A125", "state":2},
-                        {"code":"126", "no":"A126", "state":0},
-                        {"code":"127", "no":"A127", "state":0},
-                        {"code":"128", "no":"A128", "state":1},
-                        {"code":"129", "no":"A129", "state":1},
-                        {"code":"130", "no":"A130", "state":1},
-                        {"code":"131", "no":"A131", "state":1},
-                        {"code":"132", "no":"A132", "state":1},
-                        {"code":"133", "no":"A133", "state":2},
-                        {"code":"134", "no":"A134", "state":1},
-                        {"code":"135", "no":"A135", "state":1}
-                    ],
-                    "level": 5
-                },
-                floorData: [],
-                selectItem: '',
+
+                seatCanSelect: true,  //用户在当前日期是否可选 默认可选
+
+                //当前座位布局图数据 [{"code":"001", "no":"A001", "state":0},  {"code":"002", "no":"A002", "state":1}]
+                // 状态：0-可选；1-不可选；2-已被预订；3-我的座位
+                seatData: [],
+
+                floorData: [], //记录楼层数据 [1,2,3,4]
+
+                selectItem: '', //标记用户当前选择的可选座位
+
+                //10b5楼座位样式数据 static
                 seatBaseInfo: [
                     //第一层
                     {code: '041', class: 'rotate90', top: '1%', left: '3%'},
@@ -441,6 +312,10 @@
                     {code: '121', class: '', top: '93.6%', left: '65.3%'},
 
                 ],
+                //end of 基础数据
+
+
+                //弹窗类数据
                 seatReservedHint: false, //弹窗：已被预定人信息
                 seatReservedHintData: {
                     no: "A001",
@@ -450,51 +325,21 @@
                 seatReserving: false, //弹窗：用户点击可选座位
                 //：0-可选；1-已被预订；2-当前用户已预定
                 //服务器返回数据
-                seatReservingData: [
-                    {
-                        "seatDate": "2020-4-15",
-                        "state": 0
-                    },
-                    {
-                        "seatDate": "2020-4-16",
-                        "state": 1
-                    },
-                    {
-                        "seatDate": "2020-4-17",
-                        "state": 0
-                    },
-                    {
-                        "seatDate": "2020-4-18",
-                        "state": 2
-                    },
-                    {
-                        "seatDate": "2020-4-19",
-                        "state": 1
-                    },
-                    {
-                        "seatDate": "2020-4-20",
-                        "state": 0
-                    },
-                    {
-                        "seatDate": "2020-4-21",
-                        "state": 0
-                    },
-                    {
-                        "seatDate": "2020-4-22",
-                        "state": 0
-                    }
-                ],
+                seatReservingData: [],
                 //用户当前选择数据
                 seatReservingUserChooseData: {
                     reservationDates: [],
                     code: ""
                 }
+                //end of 弹窗类数据
+
             }
         },
         methods: {
+            //加载座位class
             getClass(item) {
                 const that = this;
-                let seatInfo = that.seatData.result;
+                let seatInfo = that.seatData;
                 let status = ''
 
                 let isHave = false;
@@ -527,6 +372,8 @@
                 return classes
 
             },
+
+            //加载可选座位弹窗class
             getClass2(item) {
                 return {
                     'seat-icon-choosable': item.state == 0,
@@ -535,31 +382,72 @@
                     'seat-icon-checking': item.state == 3
                 }
             },
-            whenUserClickDate(item) {
-              let state = item.state;
-              const that = this;
-              if (state == 0) {
-                  item.state = 3;
-                  that.seatReservingUserChooseData.reservationDates.push(item.seatDate);
-              } else if (state == 3) {
-                  item.state =0;
-                  let dates = that.seatReservingUserChooseData.reservationDates;
-                  let idx = -1;
-                  for (let i=0; i<dates.length; i++) {
-                      if (dates[i] == item.seatDate) {
-                        idx = i;
-                        break;
-                      }
-                  }
 
-                  if (idx > -1) {
-                      dates.splice(idx,1);
-                  }
-              }
-              console.log(that.seatReservingUserChooseData);
+            showSeatReservingDate(str) {
+                return ymsUtil.fmtDate2(str);
+            },
+
+            //当用户点击我要预定时
+            submitUserChooseSeatData() {
+                const that = this;
+
+                if (that.seatReservingUserChooseData.reservationDates.length < 1) {
+                    alert("亲 您还没有选择座位哦");
+                } else {
+                    //提交数据到服务API
+                    ddAPI.showPreloader("提交数据中...");
+                    ApiExample.saveStaffReservation(that.seatReservingUserChooseData).then(res => {
+                        ddAPI.hidePreloader();
+
+                        if (!res.result.value) {
+                            alert("预定成功");
+                            //关闭座位日期挑选弹框
+                            that.seatReserving = false;
+                            that.clearSeatReservingUserChooseData();
+                        } else {
+                            alert("预定失败,请重试!");
+                        }
+
+                    }).catch(err => {
+                        ddAPI.hidePreloader();
+                        alert("请求失败, 请重试");
+                    });
+                }
 
             },
 
+            //当用户可选座位弹窗上点击可选日期时
+            whenUserClickDate(item) {
+                let state = item.state;
+                const that = this;
+                if (state == 0) {
+                    item.state = 3;
+                    that.seatReservingUserChooseData.reservationDates.push(item.seatDate);
+                } else if (state == 3) {
+                    item.state = 0;
+                    let dates = that.seatReservingUserChooseData.reservationDates;
+                    let idx = -1;
+                    for (let i = 0; i < dates.length; i++) {
+                        if (dates[i] == item.seatDate) {
+                            idx = i;
+                            break;
+                        }
+                    }
+
+                    if (idx > -1) {
+                        dates.splice(idx, 1);
+                    }
+                }
+            },
+
+            //清空 当前座位标记 用户当前的reservationDates 和 code
+            clearSeatReservingUserChooseData() {
+                this.selectItem = ''; //清空当前选择标记
+                this.seatReservingUserChooseData.reservationDates = [];
+                this.seatReservingUserChooseData.code = '';
+            },
+
+            //当用户点击选择楼层时
             floorChoose() {
                 const that = this
                 ApiExample.storeyList().then(res => {
@@ -587,26 +475,53 @@
                                 that.floorSelect = result.value //记录用户选择的Code
 
 
-                                //获取座位布局图数据
-                                ApiExample.seatList({code: that.floorSelect, selectDate: that.selectDate}).then(res => {
-                                    // that.seatData = res;
-                                })
+                                that.loadFloorData();
 
-                                //从新计算高度
-                                that.resizeEvent();
-
+                                // ddAPI.showPreloader("加载楼层数据中...");
+                                // //获取座位布局图数据
+                                // ApiExample.seatList({code: that.floorSelect, selectDate: that.selectDate}).then(res => {
+                                //      that.seatData = res;
+                                //     ddAPI.hidePreloader();
+                                //     //从新计算高度
+                                //     that.resizeEvent();
+                                // });
                             },
                             onFail: function (err) {
-                                alert("floorChoose Error")
+                                //alert("floorChoose Error")
                             }
                         })
                     })
 
                 }).catch(err => {
                     // callback(err)
-                    alert(err)
                 })
             },
+
+            //加载楼层数据
+            loadFloorData() {
+                const that = this;
+                ddAPI.showPreloader("加载楼层数据中...");
+                //获取座位布局图数据
+                ApiExample.seatList({code: that.floorSelect, selectDate: that.selectDate}).then(res => {
+                    that.seatData = res.result;
+
+                    that.seatCanSelect = true; //从新加载时为true
+                    for (let i = 0; i < that.seatData.length; i++) {
+                        let st = that.seatData[i];
+                        if (st.state == 3) {
+                            that.seatCanSelect = false;
+                            break;
+                        }
+                    }
+
+                    ddAPI.hidePreloader();
+                    //从新计算高度
+                    that.resizeEvent();
+                });
+            },
+
+
+            //当用户选择日期时
             dateChoose() {
                 const that = this;
                 dd.ready(() => {
@@ -620,12 +535,14 @@
                             }
                             */
                             that.selectDate = result.value
+                            that.loadFloorData();
                         },
                         onFail: function (err) {
                         }
                     })
                 });
             },
+
             resizeEvent() {
                 this.$nextTick(() => {
                     document.getElementsByClassName("chooseseat")[0].style.height = (document.documentElement.clientHeight -
@@ -639,40 +556,76 @@
                     }
                 })
             },
-            resizeDateWidth () {
+            resizeDateWidth() {
                 this.$nextTick(() => {
                     document.getElementsByClassName("seat-reserving-choose")[0].style.minWidth =
                         (document.getElementsByClassName("seat-reserving-choose-date").length * 7.4 + 0.6) + 'rem'
                 })
             },
+
+            //当点击座位时
             whenClickSeat(code, ev) {
                 //ev.stopPropagation() 阻止冒泡  //1.阻止默认事件?
                 const that = this;
                 let seat = this.getSomeSeatInfo(code);
-                if (seat.state == 0) { //if可选
-                    ev.stopPropagation();
-                    that.selectItem = code; //更新选中图标
-                    that.seatReservingUserChooseData.code = seat.no; //设置当前选中座位的座位号
-                    that.seatReserving = true; // 打开选择座位日期的弹框
+
+                //if 当前座位可选
+                if (seat.state == 0) {
+                    if (that.seatCanSelect == true) {
+                        that.clearSeatReservingUserChooseData();
+                        ddAPI.showPreloader("拼命加载中...");
+
+                        ev.stopPropagation();
+                        that.selectItem = code; //更新选中图标
+                        that.seatReservingUserChooseData.code = seat.no; //设置当前选中座位的座位号
+
+                        ApiExample.listSeatDateReservation({selectDate: that.selectDate, code: code}).then(res => {
+                            // that.seatReservingData = res.result;
+                            ddAPI.hidePreloader();
+                            let rs = res.result;
+                            for (let i = 0; i < rs.length; i++) {
+                                rs[i].seatDate = ymsUtil.fmtDate3(rs[i].seatDate);
+                            }
+                            that.seatReservingData = rs;
+
+                            //处理同时为true的情况：如当前用户正在查看某个已经被预定的座位，而之后又点击一个可选的座位时
+                            if (that.seatReservedHint == true) {
+                                that.seatReservedHint = false;
+                            }
+                            that.seatReserving = true; // 打开选择座位日期的弹框
+
+                            this.resizeDateWidth();
+
+                        }).catch(err => {
+
+                        });
+                    } else {
+                        alert("你今天已经预定了座位哦");
+                    }
                 } else if (seat.state == 2) { //if 已被预定
+                    ddAPI.showPreloader("拼命加载中...");
                     ev.stopPropagation();
                     // //show seat hint
                     // //1. get seat data from server
-                    // ApiExample.getReservationStaff({selectDate: that.selectDate, code: code}).then(res => {
-                    //     //2. show this seat data
-                    //     let p = res.result;
-                    //     alert(p.no + "-" + p.userName + "-" + p.departmentName);
-                    // }).catch(err => {
-                    //
-                    // })
-                    that.seatReservedHint = true; //打开弹窗
+                    ApiExample.getReservationStaff({selectDate: that.selectDate, code: code}).then(res => {
+                        //2. show this seat data
+                        ddAPI.hidePreloader();
+                        that.seatReservedHintData = res.result;
+                        if (that.seatReserving == true) {
+                            that.seatReserving = false;
+                        }
+                        that.seatReservedHint = true; //打开弹窗
+                    }).catch(err => {
+
+                    })
                 }
-                this.resizeDateWidth()
+
             },
 
+            //获取某个座位的数据
             getSomeSeatInfo(code) {
                 const that = this;
-                let tmpData = that.seatData.result;
+                let tmpData = that.seatData;
                 for (let one of tmpData) {
                     if (one.code == code) {
                         return one;
@@ -680,18 +633,11 @@
                 }
             },
 
-            getSeatStatus(code) {//获取座位状态
-                const that = this;
-                let tmpData = that.seatData.result;
-                for (let one of tmpData) {
-                    if (one.code == code) {
-                        return one.state;
-                    }
-                }
-            },
-            whenClickHome () { //当点击home页 取消所有弹窗
+            //当点击Home页时
+            whenClickHome() { //当点击home页 取消所有弹窗
                 this.seatReserving = false;
                 this.seatReservedHint = false;
+                this.clearSeatReservingUserChooseData();
             }
         },
         mounted() {
@@ -702,6 +648,10 @@
             window.addEventListener('resize', this.resizeEvent, false);
             this.resizeEvent();
             // this.init()
+
+            //获取今天日期
+            let timestamp1 = Date.parse(new Date);
+            this.selectDate = ymsUtil.fmtDate(timestamp1);
         }
     };
 </script>

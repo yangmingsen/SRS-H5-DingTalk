@@ -37,10 +37,7 @@ const routes = [
       {
         name: 'my-reserve',
         path: 'my-reserve',
-        component: () => import("../views/MyReserve"),
-        children: [
-
-        ]
+        component: () => import("../views/MyReserve")
       }
     ]
   }
