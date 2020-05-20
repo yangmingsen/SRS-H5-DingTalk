@@ -67,6 +67,7 @@
         border-top: 1px solid #eee;
         padding-top: 0.6rem;
         padding-bottom: 0.6rem;
+        background-color: #fff;
     }
 
     .footer-image {
