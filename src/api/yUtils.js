@@ -72,6 +72,44 @@ export const ymsUtil = {
         }
 
         return dateSplits[0]+"-"+month+"-"+day;
+    },
+
+    /***
+     * 判断指定日期是否在 某个日期范围内(now,+14)
+     * <p>curDate: 当天日期</p>
+     * <p>selDate: 制定要比较的Day</p>
+     * <p> Ok = true</p>
+     * @param obj
+     */
+    theSpecificDateIsInRange(curDate, selDate) {
+        let startDate =this.getStartDate(curDate);
+
+        let endDate = this.getEndDate(curDate);
+
+        let currentDate = new Date(selDate);
+
+        if (currentDate >= startDate && currentDate <= endDate) {
+            return true;
+        }
+        return false;
+    },
+
+    getStartDate(curDate) {
+        return new Date(curDate);
+    },
+    getEndDate(curDate) {
+        let startDate = this.getStartDate(curDate);
+
+        let nowIs = startDate.getDay();
+        if (nowIs == 0) {
+            nowIs = 7;
+        }
+
+        let addNum = 14-nowIs;
+        let endDate = new Date(curDate);
+        endDate.setDate(endDate.getDate()+addNum);
+
+        return endDate;
     }
 
 

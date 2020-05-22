@@ -53,12 +53,21 @@
             <div class="chooseseat">
                 <div class="choosefloor choosearea-10B5" v-if="floorSelect == 1">
                     <!--                   第一层-->
-                    <div v-for="item in seatBaseInfo" :index="item.code" class="user-seat" :class="getClass(item)"
+                    <div v-for="item in seatBaseInfo10b5" :index="item.code" class="user-seat" :class="getClass(item)"
                          @click="whenClickSeat(item.code, $event)" :style="{top: item.top, left: item.left}"></div>
                 </div>
-                <div class="choosefloor choosearea-10B6" v-if="floorSelect == 2">10b6</div>
-                <div class="choosefloor choosearea-10B7" v-if="floorSelect == 3">10b7</div>
-                <div class="choosefloor choosearea-13B5" v-if="floorSelect == 4">13b5</div>
+                <div class="choosefloor choosearea-10B6" v-if="floorSelect == 2">
+                    <div v-for="item in seatBaseInfo10b6" :index="item.code" class="user-seat" :class="getClass(item)"
+                         @click="whenClickSeat(item.code, $event)" :style="{top: item.top, left: item.left}"></div>
+                </div>
+                <div class="choosefloor choosearea-10B7" v-if="floorSelect == 3">
+                    <div v-for="item in seatBaseInfo10b7" :index="item.code" class="user-seat" :class="getClass(item)"
+                         @click="whenClickSeat(item.code, $event)" :style="{top: item.top, left: item.left}"></div>
+                </div>
+                <div class="choosefloor choosearea-13B5" v-if="floorSelect == 4">
+                    <div v-for="item in seatBaseInfo13b5" :index="item.code" class="user-seat" :class="getClass(item)"
+                         @click="whenClickSeat(item.code, $event)" :style="{top: item.top, left: item.left}"></div>
+                </div>
 
             </div>
 
@@ -125,9 +134,9 @@
 
                 floorSelectedKey: null, //表示用户选择的楼层，默认为Null
 
-                isShowData: true, // true=用户没有选择楼层(默认),   false 用户选择了楼层
+                isShowData: false, // true=用户没有选择楼层(默认),   false 用户选择了楼层
 
-                floorSelect: 1, //1=10b5, 2=10b6, 3=10b7, 4=13b5,
+                floorSelect: 4, //1=10b5, 2=10b6, 3=10b7, 4=13b5,
 
                 seatCanSelect: true,  //用户在当前日期是否可选 默认可选
 
@@ -140,7 +149,7 @@
                 selectItem: '', //标记用户当前选择的可选座位
 
                 //10b5楼座位样式数据 static
-                seatBaseInfo: [
+                seatBaseInfo10b5: [
                     //第一层
                     {code: '041', class: 'rotate90', top: '1%', left: '3%'},
                     {code: '042', class: 'rotate90', top: '6.6%', left: '3%'},
@@ -313,6 +322,417 @@
                     {code: '121', class: '', top: '93.6%', left: '65.3%'},
 
                 ],
+
+                //10b6楼座位样式数据 static
+                seatBaseInfo10b6:[
+                    //第一层
+                    {code: '149', class: '', top: '24%', left: '2.0%'},
+                    {code: '148', class: '', top: '24%', left: '10.3%'},
+                    {code: '147', class: '', top: '24%', left: '18.6%'},
+                    {code: '146', class: '', top: '24%', left: '26.9%'},
+                    {code: '145', class: '', top: '24%', left: '35.1%'},
+                    {code: '144', class: '', top: '24%', left: '43.4%'},
+                    {code: '143', class: '', top: '24%', left: '51.7%'},
+
+
+                    //第二层
+                    {code: '160', class: 'rotate180', top: '30.2%', left: '2.0%'},
+                    {code: '159', class: 'rotate180', top: '30.2%', left: '8.7%'},
+                    {code: '158', class: 'rotate180', top: '30.2%', left: '15.5%'},
+                    {code: '157', class: 'rotate180', top: '30.2%', left: '22.2%'},
+                    {code: '156', class: 'rotate180', top: '30.2%', left: '28.9%'},
+                    {code: '155', class: 'rotate180', top: '30.2%', left: '35.6%'},
+                    {code: '154', class: 'rotate180', top: '30.2%', left: '42.4%'},
+                    {code: '153', class: 'rotate180', top: '30.2%', left: '49.1%'},
+                    {code: '152', class: 'rotate180', top: '30.2%', left: '55.8%'},
+                    {code: '151', class: 'rotate180', top: '30.2%', left: '62.5%'},
+                    {code: '150', class: 'rotate180', top: '30.2%', left: '69.3%'},
+                    {code: '171', class: '', top: '36.7%', left: '2.0%'},
+                    {code: '170', class: '', top: '36.7%', left: '8.7%'},
+                    {code: '169', class: '', top: '36.7%', left: '15.5%'},
+                    {code: '168', class: '', top: '36.7%', left: '22.2%'},
+                    {code: '167', class: '', top: '36.7%', left: '28.9%'},
+                    {code: '166', class: '', top: '36.7%', left: '35.6%'},
+                    {code: '165', class: '', top: '36.7%', left: '42.4%'},
+                    {code: '164', class: '', top: '36.7%', left: '49.1%'},
+                    {code: '163', class: '', top: '36.7%', left: '55.8%'},
+                    {code: '162', class: '', top: '36.7%', left: '62.5%'},
+                    {code: '161', class: '', top: '36.7%', left: '69.3%'},
+
+
+                    {code: '182', class: 'rotate180', top: '41%', left: '2.0%'},
+                    {code: '181', class: 'rotate180', top: '41%', left: '8.7%'},
+                    {code: '180', class: 'rotate180', top: '41%', left: '15.5%'},
+                    {code: '179', class: 'rotate180', top: '41%', left: '22.2%'},
+                    {code: '178', class: 'rotate180', top: '41%', left: '28.9%'},
+                    {code: '177', class: 'rotate180', top: '41%', left: '35.6%'},
+                    {code: '176', class: 'rotate180', top: '41%', left: '42.4%'},
+                    {code: '175', class: 'rotate180', top: '41%', left: '49.1%'},
+                    {code: '174', class: 'rotate180', top: '41%', left: '55.8%'},
+                    {code: '173', class: 'rotate180', top: '41%', left: '62.5%'},
+                    {code: '172', class: 'rotate180', top: '41%', left: '69.3%'},
+                    {code: '193', class: '', top: '47.5%', left: '2.0%'},
+                    {code: '192', class: '', top: '47.5%', left: '8.7%'},
+                    {code: '191', class: '', top: '47.5%', left: '15.5%'},
+                    {code: '190', class: '', top: '47.5%', left: '22.2%'},
+                    {code: '189', class: '', top: '47.5%', left: '28.9%'},
+                    {code: '188', class: '', top: '47.5%', left: '35.6%'},
+                    {code: '187', class: '', top: '47.5%', left: '42.4%'},
+                    {code: '186', class: '', top: '47.5%', left: '49.1%'},
+                    {code: '185', class: '', top: '47.5%', left: '55.8%'},
+                    {code: '184', class: '', top: '47.5%', left: '62.5%'},
+                    {code: '183', class: '', top: '47.5%', left: '69.3%'},
+
+
+                    {code: '204', class: 'rotate180', top: '52.1%', left: '2.0%'},
+                    {code: '203', class: 'rotate180', top: '52.1%', left: '8.7%'},
+                    {code: '202', class: 'rotate180', top: '52.1%', left: '15.5%'},
+                    {code: '201', class: 'rotate180', top: '52.1%', left: '22.2%'},
+                    {code: '200', class: 'rotate180', top: '52.1%', left: '28.9%'},
+                    {code: '199', class: 'rotate180', top: '52.1%', left: '35.6%'},
+                    {code: '198', class: 'rotate180', top: '52.1%', left: '42.4%'},
+                    {code: '197', class: 'rotate180', top: '52.1%', left: '49.1%'},
+                    {code: '196', class: 'rotate180', top: '52.1%', left: '55.8%'},
+                    {code: '195', class: 'rotate180', top: '52.1%', left: '62.5%'},
+                    {code: '194', class: 'rotate180', top: '52.1%', left: '69.3%'},
+                    {code: '215', class: '', top: '58.5%', left: '2.0%'},
+                    {code: '214', class: '', top: '58.5%', left: '8.7%'},
+                    {code: '213', class: '', top: '58.5%', left: '15.5%'},
+                    {code: '212', class: '', top: '58.5%', left: '22.2%'},
+                    {code: '211', class: '', top: '58.5%', left: '28.9%'},
+                    {code: '210', class: '', top: '58.5%', left: '35.6%'},
+                    {code: '209', class: '', top: '58.5%', left: '42.4%'},
+                    {code: '208', class: '', top: '58.5%', left: '49.1%'},
+                    {code: '207', class: '', top: '58.5%', left: '55.8%'},
+                    {code: '206', class: '', top: '58.5%', left: '62.5%'},
+                    {code: '205', class: '', top: '58.5%', left: '69.3%'},
+
+
+
+                    //第三层
+                    {code: '222', class: 'rotate180', top: '64.6%', left: '25.7%'},
+                    {code: '221', class: 'rotate180', top: '64.6%', left: '33.0%'},
+                    {code: '220', class: 'rotate180', top: '64.6%', left: '40.3%'},
+                    {code: '219', class: 'rotate180', top: '64.6%', left: '47.6%'},
+                    {code: '218', class: 'rotate180', top: '64.6%', left: '54.8%'},
+                    {code: '217', class: 'rotate180', top: '64.6%', left: '62.1%'},
+                    {code: '216', class: 'rotate180', top: '64.6%', left: '69.4%'},
+                    {code: '229', class: '', top: '71.2%', left: '25.7%'},
+                    {code: '228', class: '', top: '71.2%', left: '33.0%'},
+                    {code: '227', class: '', top: '71.2%', left: '40.3%'},
+                    {code: '226', class: '', top: '71.2%', left: '47.6%'},
+                    {code: '225', class: '', top: '71.2%', left: '54.8%'},
+                    {code: '224', class: '', top: '71.2%', left: '62.1%'},
+                    {code: '223', class: '', top: '71.2%', left: '69.4%'},
+                    {code: '236', class: 'rotate180', top: '75%', left: '25.7%'},
+                    {code: '235', class: 'rotate180', top: '75%', left: '33.0%'},
+                    {code: '234', class: 'rotate180', top: '75%', left: '40.3%'},
+                    {code: '233', class: 'rotate180', top: '75%', left: '47.6%'},
+                    {code: '232', class: 'rotate180', top: '75%', left: '54.8%'},
+                    {code: '231', class: 'rotate180', top: '75%', left: '62.1%'},
+                    {code: '230', class: 'rotate180', top: '75%', left: '69.4%'},
+                    {code: '243', class: '', top: '81.6%', left: '25.7%'},
+                    {code: '242', class: '', top: '81.6%', left: '33.0%'},
+                    {code: '241', class: '', top: '81.6%', left: '40.3%'},
+                    {code: '240', class: '', top: '81.6%', left: '47.6%'},
+                    {code: '239', class: '', top: '81.6%', left: '54.8%'},
+                    {code: '238', class: '', top: '81.6%', left: '62.1%'},
+                    {code: '237', class: '', top: '81.6%', left: '69.4%'},
+                    {code: '250', class: 'rotate180', top: '86.1%', left: '25.7%'},
+                    {code: '249', class: 'rotate180', top: '86.1%', left: '33.0%'},
+                    {code: '248', class: 'rotate180', top: '86.1%', left: '40.3%'},
+                    {code: '247', class: 'rotate180', top: '86.1%', left: '47.6%'},
+                    {code: '246', class: 'rotate180', top: '86.1%', left: '54.8%'},
+                    {code: '245', class: 'rotate180', top: '86.1%', left: '62.1%'},
+                    {code: '244', class: 'rotate180', top: '86.1%', left: '69.4%'},
+                    {code: '257', class: '', top: '92.6%', left: '25.7%'},
+                    {code: '256', class: '', top: '92.6%', left: '33.0%'},
+                    {code: '255', class: '', top: '92.6%', left: '40.3%'},
+                    {code: '254', class: '', top: '92.6%', left: '47.6%'},
+                    {code: '253', class: '', top: '92.6%', left: '54.8%'},
+                    {code: '252', class: '', top: '92.6%', left: '62.1%'},
+                    {code: '251', class: '', top: '92.6%', left: '69.4%'},
+
+
+
+                    //第4层
+                    {code: '260', class: 'rotate180', top: '62.5%', left: '2.0%'},
+                    {code: '259', class: 'rotate180', top: '62.5%', left: '8.7%'},
+                    {code: '258', class: 'rotate180', top: '62.5%', left: '15.3%'},
+                    {code: '263', class: 'rotate180', top: '70.7%', left: '2.0%'},
+                    {code: '262', class: 'rotate180', top: '70.7%', left: '8.7%'},
+                    {code: '261', class: 'rotate180', top: '70.7%', left: '15.3%'},
+                    {code: '266', class: '', top: '77.1%', left: '2.0%'},
+                    {code: '265', class: '', top: '77.1%', left: '8.7%'},
+                    {code: '264', class: '', top: '77.1%', left: '15.3%'},
+                    {code: '269', class: 'rotate180', top: '82%', left: '2.0%'},
+                    {code: '268', class: 'rotate180', top: '82%', left: '8.7%'},
+                    {code: '267', class: 'rotate180', top: '82%', left: '15.3%'},
+                    {code: '272', class: '', top: '88.2%', left: '2.0%'},
+                    {code: '271', class: '', top: '88.2%', left: '8.7%'},
+                    {code: '270', class: '', top: '88.2%', left: '15.3%'},
+
+
+                    //第五层
+                    {code: '140', class: 'rotate270', top: '31.2%', left: '83%'},
+                    {code: '141', class: 'rotate270', top: '36.4%', left: '83%'},
+                    {code: '142', class: 'rotate270', top: '41.5%', left: '83%'},
+
+                    {code: '136', class: 'rotate90', top: '26.2%', left: '92%'},
+                    {code: '137', class: 'rotate90', top: '31.2%', left: '92%'},
+                    {code: '138', class: 'rotate90', top: '36.4%', left: '92%'},
+                    {code: '139', class: 'rotate90', top: '41.5%', left: '92%'},
+
+
+        ],
+
+                //10b7楼座位样式数据 static
+                seatBaseInfo10b7:[
+
+                    //第一层
+                    {code: '283', class: 'rotate90', top: '3.8%', left: '51.5%'},
+                    {code: '284', class: 'rotate90', top: '9.4%', left: '51.5%'},
+                    {code: '285', class: 'rotate90', top: '15.0%', left: '51.5%'},
+                    {code: '286', class: 'rotate90', top: '20.6%', left: '51.5%'},
+                    {code: '287', class: 'rotate90', top: '26.2%', left: '51.5%'},
+                    {code: '278', class: 'rotate270', top: '3.8%', left: '60%'},
+                    {code: '279', class: 'rotate270', top: '9.4%', left: '60%'},
+                    {code: '280', class: 'rotate270', top: '15.0%', left: '60%'},
+                    {code: '281', class: 'rotate270', top: '20.6%', left: '60%'},
+                    {code: '282', class: 'rotate270', top: '26.2%', left: '60%'},
+                    {code: '273', class: 'rotate90', top: '3.8%', left: '68.5%'},
+                    {code: '274', class: 'rotate90', top: '9.4%', left: '68.5%'},
+                    {code: '275', class: 'rotate90', top: '15.0%', left: '68.5%'},
+                    {code: '276', class: 'rotate90', top: '20.6%', left: '68.5%'},
+                    {code: '277', class: 'rotate90', top: '26.2%', left: '68.5%'},
+
+                    //第二层
+                    {code: '288', class: 'rotate270', top: '16.0%', left: '90.5%'},
+                    {code: '289', class: 'rotate270', top: '21.2%', left: '90.5%'},
+                    {code: '290', class: 'rotate270', top: '26.3%', left: '90.5%'},
+                    {code: '291', class: 'rotate270', top: '31.5%', left: '90.5%'},
+                    {code: '292', class: 'rotate270', top: '36.7%', left: '90.5%'},
+                    {code: '293', class: 'rotate270', top: '41.8%', left: '90.5%'},
+
+
+                    //第三层
+                    {code: '310', class: 'rotate180', top: '38%', left: '22.4%'},
+                    {code: '309', class: 'rotate180', top: '38%', left: '29.4%'},
+                    {code: '308', class: 'rotate180', top: '38%', left: '36.4%'},
+                    {code: '307', class: 'rotate180', top: '38%', left: '43.4%'},
+                    {code: '306', class: 'rotate180', top: '38%', left: '50.4%'},
+                    {code: '305', class: 'rotate180', top: '38%', left: '57.4%'},
+                    {code: '304', class: 'rotate180', top: '38%', left: '64.4%'},
+                    {code: '303', class: 'rotate180', top: '38%', left: '71.4%'},
+                    {code: '302', class: 'rotate180', top: '38%', left: '78.4%'},
+                    {code: '319', class: '', top: '44.8%', left: '22.4%'},
+                    {code: '318', class: '', top: '44.8%', left: '29.4%'},
+                    {code: '317', class: '', top: '44.8%', left: '36.4%'},
+                    {code: '316', class: '', top: '44.8%', left: '43.4%'},
+                    {code: '315', class: '', top: '44.8%', left: '50.4%'},
+                    {code: '314', class: '', top: '44.8%', left: '57.4%'},
+                    {code: '313', class: '', top: '44.8%', left: '64.4%'},
+                    {code: '312', class: '', top: '44.8%', left: '71.4%'},
+                    {code: '311', class: '', top: '44.8%', left: '78.4%'},
+
+
+                    //第4层
+                    {code: '326', class: 'rotate180', top: '50%', left: '22.4%'},
+                    {code: '325', class: 'rotate180', top: '50%', left: '30.5%'},
+                    {code: '324', class: 'rotate180', top: '50%', left: '38.7%'},
+                    {code: '323', class: 'rotate180', top: '50%', left: '46.8%'},
+                    {code: '322', class: 'rotate180', top: '50%', left: '55.0%'},
+                    {code: '321', class: 'rotate180', top: '50%', left: '63.1%'},
+                    {code: '320', class: 'rotate180', top: '50%', left: '71.3%'},
+                    {code: '333', class: '', top: '56.6%', left: '22.4%'},
+                    {code: '332', class: '', top: '56.6%', left: '30.5%'},
+                    {code: '331', class: '', top: '56.6%', left: '38.7%'},
+                    {code: '330', class: '', top: '56.6%', left: '46.8%'},
+                    {code: '329', class: '', top: '56.6%', left: '55.0%'},
+                    {code: '328', class: '', top: '56.6%', left: '63.1%'},
+                    {code: '327', class: '', top: '56.6%', left: '71.3%'},
+                    {code: '340', class: 'rotate180', top: '61.1%', left: '22.4%'},
+                    {code: '339', class: 'rotate180', top: '61.1%', left: '30.5%'},
+                    {code: '338', class: 'rotate180', top: '61.1%', left: '38.7%'},
+                    {code: '337', class: 'rotate180', top: '61.1%', left: '46.8%'},
+                    {code: '336', class: 'rotate180', top: '61.1%', left: '55.0%'},
+                    {code: '335', class: 'rotate180', top: '61.1%', left: '63.1%'},
+                    {code: '334', class: 'rotate180', top: '61.1%', left: '71.3%'},
+                    {code: '347', class: '', top: '67.6%', left: '22.4%'},
+                    {code: '346', class: '', top: '67.6%', left: '30.5%'},
+                    {code: '345', class: '', top: '67.6%', left: '38.7%'},
+                    {code: '344', class: '', top: '67.6%', left: '46.8%'},
+                    {code: '343', class: '', top: '67.6%', left: '55.0%'},
+                    {code: '342', class: '', top: '67.6%', left: '63.1%'},
+                    {code: '341', class: '', top: '67.6%', left: '71.3%'},
+                    {code: '354', class: 'rotate180', top: '72.1%', left: '22.4%'},
+                    {code: '353', class: 'rotate180', top: '72.1%', left: '30.5%'},
+                    {code: '352', class: 'rotate180', top: '72.1%', left: '38.7%'},
+                    {code: '351', class: 'rotate180', top: '72.1%', left: '46.8%'},
+                    {code: '350', class: 'rotate180', top: '72.1%', left: '55.0%'},
+                    {code: '349', class: 'rotate180', top: '72.1%', left: '63.1%'},
+                    {code: '348', class: 'rotate180', top: '72.1%', left: '71.3%'},
+                    {code: '361', class: '', top: '78.5%', left: '22.4%'},
+                    {code: '360', class: '', top: '78.5%', left: '30.5%'},
+                    {code: '359', class: '', top: '78.5%', left: '38.7%'},
+                    {code: '358', class: '', top: '78.5%', left: '46.8%'},
+                    {code: '357', class: '', top: '78.5%', left: '55.0%'},
+                    {code: '356', class: '', top: '78.5%', left: '63.1%'},
+                    {code: '355', class: '', top: '78.5%', left: '71.3%'},
+                    {code: '368', class: 'rotate180', top: '82.9%', left: '22.4%'},
+                    {code: '367', class: 'rotate180', top: '82.9%', left: '30.5%'},
+                    {code: '366', class: 'rotate180', top: '82.9%', left: '38.7%'},
+                    {code: '365', class: 'rotate180', top: '82.9%', left: '46.8%'},
+                    {code: '364', class: 'rotate180', top: '82.9%', left: '55.0%'},
+                    {code: '363', class: 'rotate180', top: '82.9%', left: '63.1%'},
+                    {code: '362', class: 'rotate180', top: '82.9%', left: '71.3%'},
+                    {code: '375', class: '', top: '89.3%', left: '22.4%'},
+                    {code: '374', class: '', top: '89.3%', left: '30.5%'},
+                    {code: '373', class: '', top: '89.3%', left: '38.7%'},
+                    {code: '372', class: '', top: '89.3%', left: '46.8%'},
+                    {code: '371', class: '', top: '89.3%', left: '55.0%'},
+                    {code: '370', class: '', top: '89.3%', left: '63.1%'},
+                    {code: '369', class: '', top: '89.3%', left: '71.3%'},
+
+                    //第五层
+                    {code: '377', class: 'rotate180', top: '66.6%', left: '3.4%'},
+                    {code: '376', class: 'rotate180', top: '66.6%', left: '10.9%'},
+                    {code: '379', class: '', top: '73%', left: '3.4%'},
+                    {code: '378', class: '', top: '73%', left: '10.9%'},
+                    {code: '381', class: 'rotate180', top: '77.1%', left: '3.4%'},
+                    {code: '380', class: 'rotate180', top: '77.1%', left: '10.9%'},
+                    {code: '383', class: '', top: '83.2%', left: '3.4%'},
+                    {code: '382', class: '', top: '83.2%', left: '10.9%'},
+                    {code: '385', class: 'rotate180', top: '89.1%', left: '3.4%'},
+                    {code: '384', class: 'rotate180', top: '89.1%', left: '10.9%'},
+
+
+        ],
+
+                //10b7楼座位样式数据 static
+                seatBaseInfo13b5:[
+                    {code: '368', class: 'rotate180', top: '15.7%', left: '20.2%'},
+                    {code: '367', class: 'rotate180', top: '15.7%', left: '28.2%'},
+                    {code: '366', class: 'rotate180', top: '15.7%', left: '36.2%'},
+                    {code: '365', class: 'rotate180', top: '15.7%', left: '44.2%'},
+                    {code: '364', class: 'rotate180', top: '15.7%', left: '52.2%'},
+                    {code: '363', class: 'rotate180', top: '15.7%', left: '60.2%'},
+                    {code: '362', class: 'rotate180', top: '15.7%', left: '68.2%'},
+                    {code: '361', class: 'rotate180', top: '15.7%', left: '76.2%'},
+                    {code: '360', class: 'rotate180', top: '15.7%', left: '84.2%'},
+                    {code: '359', class: 'rotate180', top: '15.7%', left: '92.2%'},
+                    {code: '378', class: '', top: '21.7%', left: '20.2%'},
+                    {code: '377', class: '', top: '21.7%', left: '28.2%'},
+                    {code: '376', class: '', top: '21.7%', left: '36.2%'},
+                    {code: '375', class: '', top: '21.7%', left: '44.2%'},
+                    {code: '374', class: '', top: '21.7%', left: '52.2%'},
+                    {code: '373', class: '', top: '21.7%', left: '60.2%'},
+                    {code: '372', class: '', top: '21.7%', left: '68.2%'},
+                    {code: '371', class: '', top: '21.7%', left: '76.2%'},
+                    {code: '370', class: '', top: '21.7%', left: '84.2%'},
+                    {code: '369', class: '', top: '21.7%', left: '92.2%'},
+                    {code: '388', class: 'rotate180', top: '27.6%', left: '20.2%'},
+                    {code: '387', class: 'rotate180', top: '27.6%', left: '28.2%'},
+                    {code: '386', class: 'rotate180', top: '27.6%', left: '36.2%'},
+                    {code: '385', class: 'rotate180', top: '27.6%', left: '44.2%'},
+                    {code: '384', class: 'rotate180', top: '27.6%', left: '52.2%'},
+                    {code: '383', class: 'rotate180', top: '27.6%', left: '60.2%'},
+                    {code: '382', class: 'rotate180', top: '27.6%', left: '68.2%'},
+                    {code: '381', class: 'rotate180', top: '27.6%', left: '76.2%'},
+                    {code: '380', class: 'rotate180', top: '27.6%', left: '84.2%'},
+                    {code: '379', class: 'rotate180', top: '27.6%', left: '92.2%'},
+                    {code: '398', class: '', top: '33.6%', left: '20.2%'},
+                    {code: '397', class: '', top: '33.6%', left: '28.2%'},
+                    {code: '396', class: '', top: '33.6%', left: '36.2%'},
+                    {code: '395', class: '', top: '33.6%', left: '44.2%'},
+                    {code: '394', class: '', top: '33.6%', left: '52.2%'},
+                    {code: '393', class: '', top: '33.6%', left: '60.2%'},
+                    {code: '392', class: '', top: '33.6%', left: '68.2%'},
+                    {code: '391', class: '', top: '33.6%', left: '76.2%'},
+                    {code: '390', class: '', top: '33.6%', left: '84.2%'},
+                    {code: '389', class: '', top: '33.6%', left: '92.2%'},
+                    {code: '408', class: 'rotate180', top: '39.6%', left: '20.2%'},
+                    {code: '407', class: 'rotate180', top: '39.6%', left: '28.2%'},
+                    {code: '406', class: 'rotate180', top: '39.6%', left: '36.2%'},
+                    {code: '405', class: 'rotate180', top: '39.6%', left: '44.2%'},
+                    {code: '404', class: 'rotate180', top: '39.6%', left: '52.2%'},
+                    {code: '403', class: 'rotate180', top: '39.6%', left: '60.2%'},
+                    {code: '402', class: 'rotate180', top: '39.6%', left: '68.2%'},
+                    {code: '401', class: 'rotate180', top: '39.6%', left: '76.2%'},
+                    {code: '400', class: 'rotate180', top: '39.6%', left: '84.2%'},
+                    {code: '399', class: 'rotate180', top: '39.6%', left: '92.2%'},
+                    {code: '418', class: '', top: '45.6%', left: '20.2%'},
+                    {code: '417', class: '', top: '45.6%', left: '28.2%'},
+                    {code: '416', class: '', top: '45.6%', left: '36.2%'},
+                    {code: '415', class: '', top: '45.6%', left: '44.2%'},
+                    {code: '414', class: '', top: '45.6%', left: '52.2%'},
+                    {code: '413', class: '', top: '45.6%', left: '60.2%'},
+                    {code: '412', class: '', top: '45.6%', left: '68.2%'},
+                    {code: '411', class: '', top: '45.6%', left: '76.2%'},
+                    {code: '410', class: '', top: '45.6%', left: '84.2%'},
+                    {code: '409', class: '', top: '45.6%', left: '92.2%'},
+                    {code: '428', class: 'rotate180', top: '51.6%', left: '20.2%'},
+                    {code: '427', class: 'rotate180', top: '51.6%', left: '28.2%'},
+                    {code: '426', class: 'rotate180', top: '51.6%', left: '36.2%'},
+                    {code: '425', class: 'rotate180', top: '51.6%', left: '44.2%'},
+                    {code: '424', class: 'rotate180', top: '51.6%', left: '52.2%'},
+                    {code: '423', class: 'rotate180', top: '51.6%', left: '60.2%'},
+                    {code: '422', class: 'rotate180', top: '51.6%', left: '68.2%'},
+                    {code: '421', class: 'rotate180', top: '51.6%', left: '76.2%'},
+                    {code: '420', class: 'rotate180', top: '51.6%', left: '84.2%'},
+                    {code: '419', class: 'rotate180', top: '51.6%', left: '92.2%'},
+                    {code: '438', class: '', top: '57.6%', left: '20.2%'},
+                    {code: '437', class: '', top: '57.6%', left: '28.2%'},
+                    {code: '436', class: '', top: '57.6%', left: '36.2%'},
+                    {code: '435', class: '', top: '57.6%', left: '44.2%'},
+                    {code: '434', class: '', top: '57.6%', left: '52.2%'},
+                    {code: '433', class: '', top: '57.6%', left: '60.2%'},
+                    {code: '432', class: '', top: '57.6%', left: '68.2%'},
+                    {code: '431', class: '', top: '57.6%', left: '76.2%'},
+                    {code: '430', class: '', top: '57.6%', left: '84.2%'},
+                    {code: '429', class: '', top: '57.6%', left: '92.2%'},
+                    {code: '448', class: 'rotate180', top: '63.6%', left: '20.2%'},
+                    {code: '447', class: 'rotate180', top: '63.6%', left: '28.2%'},
+                    {code: '446', class: 'rotate180', top: '63.6%', left: '36.2%'},
+                    {code: '445', class: 'rotate180', top: '63.6%', left: '44.2%'},
+                    {code: '444', class: 'rotate180', top: '63.6%', left: '52.2%'},
+                    {code: '443', class: 'rotate180', top: '63.6%', left: '60.2%'},
+                    {code: '442', class: 'rotate180', top: '63.6%', left: '68.2%'},
+                    {code: '441', class: 'rotate180', top: '63.6%', left: '76.2%'},
+                    {code: '440', class: 'rotate180', top: '63.6%', left: '84.2%'},
+                    {code: '439', class: 'rotate180', top: '63.6%', left: '92.2%'},
+                    {code: '458', class: '', top: '69.6%', left: '20.2%'},
+                    {code: '457', class: '', top: '69.6%', left: '28.2%'},
+                    {code: '456', class: '', top: '69.6%', left: '36.2%'},
+                    {code: '455', class: '', top: '69.6%', left: '44.2%'},
+                    {code: '454', class: '', top: '69.6%', left: '52.2%'},
+                    {code: '453', class: '', top: '69.6%', left: '60.2%'},
+                    {code: '452', class: '', top: '69.6%', left: '68.2%'},
+                    {code: '451', class: '', top: '69.6%', left: '76.2%'},
+                    {code: '450', class: '', top: '69.6%', left: '84.2%'},
+                    {code: '449', class: '', top: '69.6%', left: '92.2%'},
+                    {code: '468', class: 'rotate180', top: '75.3%', left: '20.2%'},
+                    {code: '467', class: 'rotate180', top: '75.3%', left: '28.2%'},
+                    {code: '466', class: 'rotate180', top: '75.3%', left: '36.2%'},
+                    {code: '465', class: 'rotate180', top: '75.3%', left: '44.2%'},
+                    {code: '464', class: 'rotate180', top: '75.3%', left: '52.2%'},
+                    {code: '463', class: 'rotate180', top: '75.3%', left: '60.2%'},
+                    {code: '462', class: 'rotate180', top: '75.3%', left: '68.2%'},
+                    {code: '461', class: 'rotate180', top: '75.3%', left: '76.2%'},
+                    {code: '460', class: 'rotate180', top: '75.3%', left: '84.2%'},
+                    {code: '459', class: 'rotate180', top: '75.3%', left: '92.2%'},
+                    {code: '478', class: '', top: '81.3%', left: '20.2%'},
+                    {code: '477', class: '', top: '81.3%', left: '28.2%'},
+                    {code: '476', class: '', top: '81.3%', left: '36.2%'},
+                    {code: '475', class: '', top: '81.3%', left: '44.2%'},
+                    {code: '474', class: '', top: '81.3%', left: '52.2%'},
+                    {code: '473', class: '', top: '81.3%', left: '60.2%'},
+                    {code: '472', class: '', top: '81.3%', left: '68.2%'},
+                    {code: '471', class: '', top: '81.3%', left: '76.2%'},
+                    {code: '470', class: '', top: '81.3%', left: '84.2%'},
+                    {code: '469', class: '', top: '81.3%', left: '92.2%'},
+
+        ],
                 //end of 基础数据
 
 
@@ -573,10 +993,18 @@
                                 value: "2015-02-10"
                             }
                             */
-                            that.selectDate = result.value;
 
-                            if (that.floorShowMsg != "座位所属楼层") {
-                                that.loadFloorData();
+                            let selectDate = result.value;
+                            let curDate =ymsUtil.fmtDate(new Date());
+
+                            if (ymsUtil.theSpecificDateIsInRange(curDate, selectDate)) {
+                                that.selectDate = result.value;
+                                if (that.floorShowMsg != "座位所属楼层") {
+                                    that.loadFloorData();
+                                }
+                            } else {
+                                let message = "只能在"+ymsUtil.fmtDate(ymsUtil.getStartDate(curDate))+"至"+ymsUtil.fmtDate(ymsUtil.getEndDate(curDate))+"期间预订座位哦!";
+                                ddAPI.ddAlert("提示", message,"确定")
                             }
                         },
                         onFail: function (err) {
@@ -789,6 +1217,7 @@
     .seat-reserving .reserving-scroll {
         width: 100%;
         overflow-x: scroll;
+        background-color: #ffffff;
         .seat-reserving-choose {
             background-color: #FDE6EA;
             height: 3.8rem;
@@ -891,6 +1320,17 @@
         background-image: url('../assets/images/bg-10B-5.png');
     }
 
+    .choosearea-10B6 {
+        background-image: url('../assets/images/bg-10B-6.png');
+    }
+
+    .choosearea-10B7 {
+        background-image: url('../assets/images/bg-10B-7.png');
+    }
+
+    .choosearea-13B5 {
+        background-image: url('../assets/images/bg-13B-5.png');
+    }
 
     //------------------------------------------------10B-5---end---------------------------------------------------
 

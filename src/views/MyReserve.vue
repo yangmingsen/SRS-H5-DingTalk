@@ -95,14 +95,7 @@
                                 >
                                 </el-date-picker>
                             </div>
-<!--                            <div class="grid-content">-->
-<!--                                <el-input-->
-<!--                                        suffix-icon="el-icon-date"-->
-<!--                                        :readonly=true-->
-<!--                                        v-model="filterDate"-->
-<!--                                        class="my-body-history-filterdate-right">-->
-<!--                                </el-input>-->
-<!--                            </div>-->
+
                         </el-col>
                     </el-row>
                 </div>
@@ -133,12 +126,12 @@
                                         </el-col>
                                     </el-row>
                                     <el-row>
-                                        <el-col :span="14">
+                                        <el-col :span="10">
                                             <div class="grid-content my-body-history-record-SeatNo">
                                                 <div class="">{{item.no}}号座</div>
                                             </div>
                                         </el-col>
-                                        <el-col :span="10">
+                                        <el-col :span="14">
                                             <div class="grid-content my-body-history-record-SeatDate">
                                                 <div class="">
                                                     入座日期：{{showReservedDate(item.reservationDate)}}
@@ -171,58 +164,60 @@
                 selectButton: 1, // 1.未来预定  2.历史预定
                 filterDateShow: ymsUtil.fmtDate5(new Date),
                 filterDate: ymsUtil.fmtDate5(new Date), //历史预定-当前日期
-                futureReservedData: [],
+                futureReservedData: [
+
+                ],
                 historyReservedData: [
                     {
                         "no": "A001",
                         "storeyName": "10B第五层",
-                        "reservationDate": "2020-5-6"
+                        "reservationDate": "20200203000000"
                     },
                     {
                         "no": "A001",
                         "storeyName": "10B第五层",
-                        "reservationDate": "2020-5-7"
+                        "reservationDate": "20200203000000"
                     },
                     {
                         "no": "A001",
                         "storeyName": "10B第五层",
-                        "reservationDate": "2020-5-6"
+                        "reservationDate": "20200203000000"
                     },
                     {
                         "no": "A001",
                         "storeyName": "10B第五层",
-                        "reservationDate": "2020-5-7"
+                        "reservationDate": "20200203000000"
                     },
                     {
                         "no": "A001",
                         "storeyName": "10B第五层",
-                        "reservationDate": "2020-5-6"
+                        "reservationDate": "20200203000000"
                     },
                     {
                         "no": "A001",
                         "storeyName": "10B第五层",
-                        "reservationDate": "2020-5-7"
+                        "reservationDate": "20200203000000"
                     },
                     {
                         "no": "A001",
                         "storeyName": "10B第五层",
-                        "reservationDate": "2020-5-6"
+                        "reservationDate": "20200203000000"
                     },
 
                     {
                         "no": "A001",
                         "storeyName": "10B第五层",
-                        "reservationDate": "2020-5-6"
+                        "reservationDate": "20200203000000"
                     },
                     {
                         "no": "A001",
                         "storeyName": "10B第五层",
-                        "reservationDate": "2020-5-7"
+                        "reservationDate": "20200203000000"
                     },
                     {
                         "no": "A001",
                         "storeyName": "10B第五层",
-                        "reservationDate": "2020-5-6"
+                        "reservationDate": "20200203000000"
                     },
                 ]
             }
@@ -329,10 +324,6 @@
                         });
                     })
                 }
-
-
-
-
 
             },
 
@@ -458,9 +449,7 @@
 
         },
         mounted() {
-           //  this.dynamicComputeBodyReservedHeight();
             this.init()
-
         }
     }
 </script>
@@ -512,12 +501,12 @@
                     }
 
                     .my-body-reserved-content-right-SeatCode {
-                        font-size: 1.4rem;
+                        font-size: 1.3rem;
                         font-weight: bold;
                     }
 
                     .my-body-reserved-content-right-date {
-                        font-size: 0.6rem;
+                        font-size: 0.8rem;
                         padding-top: 3px;
                         color: #4D4D4D;
                     }
@@ -549,35 +538,39 @@
                 .my-body-history-filterdate-left {
                     color: #00afa5;
                     font-size: 1rem;
-                    padding-top: 1.1rem;
-                    padding-left: 1.3rem;
+                    padding-top: 0.8rem;
+                    padding-left: 1rem;
                 }
                 .my-body-history-filterdate-right {
                     font-size: 1rem;
                     padding: 0.5rem 0;
+                    width: 100%;
                 }
                 .my-body-history-filterdate-right /deep/ .el-input__inner {
                     border: 1px solid #C3EFF4;
                     border-radius: 10px;
                     color: #00afa5;
                     padding-left: 0.9rem;
+                    height: 32px;
                 }
+
+
                 .my-body-history-filterdate-right /deep/ .el-input__prefix {
                     color: #00afa5;
                     font-size: 1rem;
-                    left: 12rem;
+                    left: 90%;
                 }
             }
             .my-body-history-content {
                 width: 100%;
-                margin-top: 7.8rem;
+                margin-top: 7.7rem;
                 .my-body-history-record {
                     margin-top: 0.8rem;
                     border: 1px solid #D6EFEC;
                     border-radius: 8px;
                     .my-body-history-record-left {
                         background-color: #79D2CC;
-                        height: 4.1rem;
+                        height: 65px;
                         border-bottom-left-radius: 8px ;
                         border-top-left-radius: 8px ;
                     }
@@ -591,7 +584,7 @@
                     .my-body-history-record-SeatNo {
                         text-align: left;
                         padding-left: 1rem;
-                        font-size: 1.4rem;
+                        font-size: 1.3rem;
                         padding-top: 0.3rem;
                         font-weight: bold;
                         color: #4D4D4D;
@@ -599,8 +592,8 @@
                     .my-body-history-record-SeatDate {
                         font-size: 0.8rem;
                         text-align: right;
-                        padding-top: 1rem;
-                        padding-right: 1rem;
+                        padding-top: 0.9rem;
+                        padding-right: 0.5rem;
                         color: #00afa5;
                     }
                 }
