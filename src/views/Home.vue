@@ -111,6 +111,7 @@
     import {ApiExample} from "../api/example"
     import {ddAPI} from "../api/ddAPI";
     import {ymsUtil} from "../api/yUtils";
+    import router from "../router";
 
     export default {
         name: "Home",
@@ -325,7 +326,9 @@
                 seatReserving: false, //弹窗：用户点击可选座位
                 //：0-可选；1-已被预订；2-当前用户已预定
                 //服务器返回数据
-                seatReservingData: [],
+                seatReservingData: [
+
+                ],
                 //用户当前选择数据
                 seatReservingUserChooseData: {
                     reservationDates: [],
@@ -392,25 +395,63 @@
                 const that = this;
 
                 if (that.seatReservingUserChooseData.reservationDates.length < 1) {
-                    alert("亲 您还没有选择座位哦");
+                    ddAPI.ddAlert("提示", "亲 您还没有选择座位哦", "确定")
                 } else {
                     //提交数据到服务API
                     ddAPI.showPreloader("提交数据中...");
                     ApiExample.saveStaffReservation(that.seatReservingUserChooseData).then(res => {
                         ddAPI.hidePreloader();
+                        if (res.result.value == 0) {
+                            dd.ready(() => {
+                                dd.device.notification.alert({
+                                    message: "预定成功",
+                                    title: "提示",//可传空
+                                    buttonName: "确定",
+                                    onSuccess : function() {
+                                        //onSuccess将在点击button之后回调
+                                        /*回调*/
 
-                        if (!res.result.value) {
-                            alert("预定成功");
-                            //关闭座位日期挑选弹框
-                            that.seatReserving = false;
-                            that.clearSeatReservingUserChooseData();
-                        } else {
-                            alert("预定失败,请重试!");
+                                        //flush
+                                        //关闭座位日期挑选弹框
+                                        that.seatReserving = false;
+                                        that.clearSeatReservingUserChooseData();
+                                        that.loadFloorData();
+                                    },
+                                    onFail : function(err) {}
+                                });
+                            })
+
+                        } else if (res.result.value == 1) {
+                            ddAPI.ddAlert("提示", "预定失败,请重试!", "确定")
+                        } else if (res.result.value == 2) {
+                            //
+                            let tt = res.result.reservationDates;
+                            let ansStr = "您在";
+                            for(let i=0; i<tt.length; i++) {
+                                if (i+1 == tt.length) {
+                                    ansStr+= ymsUtil.fmtDate2(ymsUtil.fmtDate3(tt[i]));
+                                } else {
+                                    ansStr+= ymsUtil.fmtDate2(ymsUtil.fmtDate3(tt[i]))+",";
+                                }
+                            }
+                            ansStr+="已预订过座位";
+                            dd.ready(() => {
+                                dd.device.notification.alert({
+                                    message: ansStr,
+                                    title: "预定失败",//可传空
+                                    buttonName: "确定",
+                                    onSuccess : function() {
+                                        //onSuccess将在点击button之后回调
+                                        /*回调*/
+                                    },
+                                    onFail : function(err) {}
+                                });
+                            })
                         }
 
                     }).catch(err => {
                         ddAPI.hidePreloader();
-                        alert("请求失败, 请重试");
+                        ddAPI.ddAlert("提示", "网络请求失败,请重试一下...", "确定")
                     });
                 }
 
@@ -450,7 +491,9 @@
             //当用户点击选择楼层时
             floorChoose() {
                 const that = this
+                ddAPI.showPreloader("加载楼层中...")
                 ApiExample.storeyList().then(res => {
+                    ddAPI.hidePreloader();
                     that.floorData = [];
                     res.result.forEach(x => {
                         let tuple = {key: x.name, value: x.code}
@@ -476,15 +519,6 @@
 
 
                                 that.loadFloorData();
-
-                                // ddAPI.showPreloader("加载楼层数据中...");
-                                // //获取座位布局图数据
-                                // ApiExample.seatList({code: that.floorSelect, selectDate: that.selectDate}).then(res => {
-                                //      that.seatData = res;
-                                //     ddAPI.hidePreloader();
-                                //     //从新计算高度
-                                //     that.resizeEvent();
-                                // });
                             },
                             onFail: function (err) {
                                 //alert("floorChoose Error")
@@ -493,18 +527,21 @@
                     })
 
                 }).catch(err => {
-                    // callback(err)
+                    ddAPI.hidePreloader();
+                    ddAPI.ddAlert("提示", "网络请求失败,请重试一下...", "确定")
                 })
             },
 
-            //加载楼层数据
+            //加载楼层布局图数据
             loadFloorData() {
                 const that = this;
+
                 ddAPI.showPreloader("加载楼层数据中...");
                 //获取座位布局图数据
                 ApiExample.seatList({code: that.floorSelect, selectDate: that.selectDate}).then(res => {
-                    that.seatData = res.result;
+                    ddAPI.hidePreloader();
 
+                    that.seatData = res.result;
                     that.seatCanSelect = true; //从新加载时为true
                     for (let i = 0; i < that.seatData.length; i++) {
                         let st = that.seatData[i];
@@ -514,9 +551,11 @@
                         }
                     }
 
-                    ddAPI.hidePreloader();
                     //从新计算高度
                     that.resizeEvent();
+                }).catch(err => {
+                    ddAPI.hidePreloader();
+                    ddAPI.ddAlert("提示", "网络请求失败,请重试一下...", "确定")
                 });
             },
 
@@ -534,8 +573,11 @@
                                 value: "2015-02-10"
                             }
                             */
-                            that.selectDate = result.value
-                            that.loadFloorData();
+                            that.selectDate = result.value;
+
+                            if (that.floorShowMsg != "座位所属楼层") {
+                                that.loadFloorData();
+                            }
                         },
                         onFail: function (err) {
                         }
@@ -556,10 +598,15 @@
                     }
                 })
             },
-            resizeDateWidth() {
+            resizeDateWidth(idx) {
                 this.$nextTick(() => {
                     document.getElementsByClassName("seat-reserving-choose")[0].style.minWidth =
                         (document.getElementsByClassName("seat-reserving-choose-date").length * 7.4 + 0.6) + 'rem'
+
+                    this.$nextTick(() => {
+                        document.getElementsByClassName("reserving-scroll")[0].scrollLeft = (idx * 112);
+                    })
+
                 })
             },
 
@@ -570,8 +617,8 @@
                 let seat = this.getSomeSeatInfo(code);
 
                 //if 当前座位可选
-                if (seat.state == 0) {
-                    if (that.seatCanSelect == true) {
+                if (seat.state == 0 || seat.state==3) {
+                    if (that.seatCanSelect == true || seat.state==3) {
                         that.clearSeatReservingUserChooseData();
                         ddAPI.showPreloader("拼命加载中...");
 
@@ -594,13 +641,25 @@
                             }
                             that.seatReserving = true; // 打开选择座位日期的弹框
 
-                            this.resizeDateWidth();
+                            //find the current date idx
+                            let idx = -1;
+                            for (let i = 0; i <rs.length; i++) {
+                                if (that.selectDate == rs[i].seatDate) {
+                                    idx = i;
+                                    break;
+                                }
+                            }
+                            if (idx == -1) {
+
+                            }
+
+                            this.resizeDateWidth(idx);
 
                         }).catch(err => {
 
                         });
                     } else {
-                        alert("你今天已经预定了座位哦");
+                        ddAPI.ddAlert("提示", "你今天已经预定了座位哦", "确定")
                     }
                 } else if (seat.state == 2) { //if 已被预定
                     ddAPI.showPreloader("拼命加载中...");
@@ -616,7 +675,8 @@
                         }
                         that.seatReservedHint = true; //打开弹窗
                     }).catch(err => {
-
+                        ddAPI.hidePreloader();
+                        ddAPI.ddAlert("提示", "网络请求失败哦,请再试一下", "确定")
                     })
                 }
 
@@ -638,7 +698,25 @@
                 this.seatReserving = false;
                 this.seatReservedHint = false;
                 this.clearSeatReservingUserChooseData();
+            },
+
+            handleOtherPageToHele() {
+                let params = this.$route.query;
+                if (params.storeyCode != undefined) {
+                    const that = this;
+                    that.selectDate = params.reservationDate;
+                    that.floorSelect = params.storeyCode;
+
+                    that.floorSelectedKey = params.storeyName; //更新用户当前选择
+                    that.floorShowMsg = that.floorSelectedKey; //更新楼层选择提示
+
+
+                    that.isShowData = false; //取消默认空白页
+
+                    that.loadFloorData();
+                }
             }
+
         },
         mounted() {
             // if($route) {
@@ -652,6 +730,9 @@
             //获取今天日期
             let timestamp1 = Date.parse(new Date);
             this.selectDate = ymsUtil.fmtDate(timestamp1);
+
+            this.handleOtherPageToHele();
+
         }
     };
 </script>

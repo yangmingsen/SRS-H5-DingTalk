@@ -39,19 +39,35 @@
         },
         methods: {
             goToHome() {
-                //切换图标
-                this.oneIcon = true;
-                this.twoIcon = false;
-
                 router.push({name: 'home'})
 
             },
             goToMy() {
+                router.push({name: 'my-reserve'})
+            },
+            iconOne() {
+                //切换图标
+                this.oneIcon = true;
+                this.twoIcon = false;
+            },
+
+            iconTwo() {
                 // 切换图标
                 this.oneIcon = false;
                 this.twoIcon = true;
+            }
 
-                router.push({name: 'my-reserve'})
+
+
+        },
+        watch: {
+            $route(to,from){
+                let path = to.path;
+                if (path.includes("my-reserve")) {
+                    this.iconTwo();
+                } else {
+                    this.iconOne();
+                }
             }
         }
     }
@@ -61,13 +77,14 @@
 
     .footer {
         color: #00afa5;
-        position: absolute;
+        position: fixed;
         bottom: 0px;
         width: 100%;
         border-top: 1px solid #eee;
         padding-top: 0.6rem;
         padding-bottom: 0.6rem;
         background-color: #fff;
+        height: 3rem;
     }
 
     .footer-image {

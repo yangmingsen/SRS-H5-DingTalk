@@ -103,31 +103,31 @@ axios.interceptors.response.use(
     },
     error => {
         try {
-            if (err.response == undefined) {
-                err.response = {}
-                err.response.msg = '服务请求异常，请稍后重试!'
-                err.response.status = -1
-            }
-            if (err.response.status.length < 8) {
-                switch (err.response.status) {
-                    case 401:
-                        //utils.redirect.login()
-                        alert("401 请登录")
-                        // router.push({name: 'passport.login'})
-                       router.push({name: 'home'})
-                        break
-                    case 403:
-                        console.log('权限不足,请联系管理员!')
-                        break
-                    case -1:
-                        break
-                    default:
-                        console.log(err.response.status)
-                        err.response.msg = '未知异常，请稍后重试!'
-                        // resp.msg = i18n.t('prompt.n' + resp.data.code);
-                        break
-                }
-            }
+            // if (err.response == undefined) {
+            //     err.response = {}
+            //     err.response.msg = '服务请求异常，请稍后重试!'
+            //     err.response.status = -1
+            // }
+            // if (err.response.status.length < 8) {
+            //     switch (err.response.status) {
+            //         case 401:
+            //             //utils.redirect.login()
+            //             alert("401 请登录")
+            //             // router.push({name: 'passport.login'})
+            //            router.push({name: 'home'})
+            //             break
+            //         case 403:
+            //             console.log('权限不足,请联系管理员!')
+            //             break
+            //         case -1:
+            //             break
+            //         default:
+            //             console.log(err.response.status)
+            //             err.response.msg = '未知异常，请稍后重试!'
+            //             // resp.msg = i18n.t('prompt.n' + resp.data.code);
+            //             break
+            //     }
+            // }
         } catch (e) {
         }
 

@@ -85,7 +85,32 @@ export const ddAPI = {
             onFail: function (err) {
             }
         })
-    }
+    },
 
+    stopPullToRefresh() {
+        dd.ui.pullToRefresh.stop();
+    },
+
+    disablePullToRefresh() {
+        dd.ready( () => {
+            dd.ui.pullToRefresh.disable();
+        })
+    },
+
+    ddAlert(title,message,buttonName) {
+        dd.ready(() => {
+            dd.device.notification.alert({
+                message: message,
+                title: title,//可传空
+                buttonName: buttonName,
+                onSuccess : function() {
+                    //onSuccess将在点击button之后回调
+                    /*回调*/
+                },
+                onFail : function(err) {}
+            });
+        })
+
+    }
 
 }

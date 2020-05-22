@@ -20,7 +20,7 @@ export default {
     let isLogin = localStorage.getItem("isLogin");
     if (isLogin == 0) {
      // router.push({ name: 'login', query: { returnurl: router.history.current.fullPath }})
-     // router.push({ name: 'login', query: { returnurl: "home" }})
+     router.push({ name: 'login', query: { returnurl: "home" }})
     }
 
   }
