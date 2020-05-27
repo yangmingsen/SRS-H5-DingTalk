@@ -29,6 +29,7 @@
 
 <script>
     import router from "../router"
+    import {ddAPI} from "../api/ddAPI";
     export default {
         name: "Footer",
         data() {
@@ -67,6 +68,7 @@
                     this.iconTwo();
                 } else {
                     this.iconOne();
+                    ddAPI.disablePullToRefresh();
                 }
             }
         }

@@ -52,7 +52,6 @@
             </div>
             <div class="chooseseat">
                 <div class="choosefloor choosearea-10B5" v-if="floorSelect == 1">
-                    <!--                   第一层-->
                     <div v-for="item in seatBaseInfo10b5" :index="item.code" class="user-seat" :class="getClass(item)"
                          @click="whenClickSeat(item.code, $event)" :style="{top: item.top, left: item.left}"></div>
                 </div>
@@ -746,13 +745,13 @@
 
 
                 //弹窗类数据
-                seatReservedHint: false, //弹窗：已被预定人信息
+                seatReservedHint: false, //弹窗：已被预定人信息 false 表示关闭
                 seatReservedHintData: {
                     no: "A001",
                     userName: "杨铭森",
                     departmentName: "流程IT中心"
                 },
-                seatReserving: false, //弹窗：用户点击可选座位
+                seatReserving: false, //弹窗：用户点击可选座位 false 表示关闭
                 //：0-可选；1-已被预订；2-当前用户已预定
                 //服务器返回数据
                 seatReservingData: [
@@ -876,7 +875,41 @@
                                     onFail : function(err) {}
                                 });
                             })
+                        } else if(  res.result.value == 3) {
+                            dd.ready(() => {
+                                dd.device.notification.alert({
+                                    message: "座位已经被预定",
+                                    title: "预定失败",//可传空
+                                    buttonName: "确定",
+                                    onSuccess : function() {
+                                        //onSuccess将在点击button之后回调
+                                        /*回调*/
+                                        that.loadSeatReservingData();
+                                    },
+                                    onFail : function(err) {}
+                                });
+                            })
+                        } else if(res.result.value == 4) {
+                            dd.ready(() => {
+                                dd.device.notification.alert({
+                                    message: "管理员已修改座位类型或部门",
+                                    title: "预定失败",//可传空
+                                    buttonName: "确定",
+                                    onSuccess : function() {
+                                        //onSuccess将在点击button之后回调
+                                        /*回调*/
+
+                                        that.loadFloorData();
+
+                                        //隐藏座位预定弹窗
+                                        that.seatReserving = false;
+
+                                    },
+                                    onFail : function(err) {}
+                                });
+                            })
                         }
+
 
                     }).catch(err => {
                         ddAPI.hidePreloader();
@@ -964,7 +997,6 @@
             //加载楼层布局图数据
             loadFloorData() {
                 const that = this;
-
                 ddAPI.showPreloader("加载楼层数据中...");
                 //获取座位布局图数据
                 ApiExample.seatList({code: that.floorSelect, selectDate: that.selectDate}).then(res => {
@@ -1047,6 +1079,45 @@
                 })
             },
 
+
+            loadSeatReservingData() {
+                const that = this;
+                ddAPI.showPreloader("拼命加载中...");
+                ApiExample.listSeatDateReservation({selectDate: that.selectDate, code: that.selectItem}).then(res => {
+                    // that.seatReservingData = res.result;
+                    ddAPI.hidePreloader();
+                    let rs = res.result;
+                    for (let i = 0; i < rs.length; i++) {
+                        rs[i].seatDate = ymsUtil.fmtDate3(rs[i].seatDate);
+                    }
+                    that.seatReservingData = rs;
+
+                    //处理同时为true的情况：如当前用户正在查看某个已经被预定的座位，而之后又点击一个可选的座位时
+                    if (that.seatReservedHint == true) {
+                        that.seatReservedHint = false;
+                    }
+                    that.seatReserving = true; // 打开选择座位日期的弹框
+
+                    //find the current date idx
+                    let idx = -1;
+                    for (let i = 0; i <rs.length; i++) {
+                        if (that.selectDate == rs[i].seatDate) {
+                            idx = i;
+                            break;
+                        }
+                    }
+                    if (idx == -1) {
+
+                    }
+
+                    this.resizeDateWidth(idx);
+
+                }).catch(err => {
+                    ddAPI.hidePreloader();
+                    ddAPI.ddAlert("提示","网络请求出错,请再试一下...","确定")
+                });
+            },
+
             //当点击座位时
             whenClickSeat(code, ev) {
                 //ev.stopPropagation() 阻止冒泡  //1.阻止默认事件?
@@ -1057,44 +1128,47 @@
                 if (seat.state == 0 || seat.state==3) {
                     if (that.seatCanSelect == true || seat.state==3) {
                         that.clearSeatReservingUserChooseData();
-                        ddAPI.showPreloader("拼命加载中...");
+
 
                         ev.stopPropagation();
                         that.selectItem = code; //更新选中图标
                         that.seatReservingUserChooseData.code = seat.no; //设置当前选中座位的座位号
 
-                        ApiExample.listSeatDateReservation({selectDate: that.selectDate, code: code}).then(res => {
-                            // that.seatReservingData = res.result;
-                            ddAPI.hidePreloader();
-                            let rs = res.result;
-                            for (let i = 0; i < rs.length; i++) {
-                                rs[i].seatDate = ymsUtil.fmtDate3(rs[i].seatDate);
-                            }
-                            that.seatReservingData = rs;
+                        that.loadSeatReservingData();
 
-                            //处理同时为true的情况：如当前用户正在查看某个已经被预定的座位，而之后又点击一个可选的座位时
-                            if (that.seatReservedHint == true) {
-                                that.seatReservedHint = false;
-                            }
-                            that.seatReserving = true; // 打开选择座位日期的弹框
-
-                            //find the current date idx
-                            let idx = -1;
-                            for (let i = 0; i <rs.length; i++) {
-                                if (that.selectDate == rs[i].seatDate) {
-                                    idx = i;
-                                    break;
-                                }
-                            }
-                            if (idx == -1) {
-
-                            }
-
-                            this.resizeDateWidth(idx);
-
-                        }).catch(err => {
-
-                        });
+                        // ddAPI.showPreloader("拼命加载中...");
+                        // ApiExample.listSeatDateReservation({selectDate: that.selectDate, code: code}).then(res => {
+                        //     // that.seatReservingData = res.result;
+                        //     ddAPI.hidePreloader();
+                        //     let rs = res.result;
+                        //     for (let i = 0; i < rs.length; i++) {
+                        //         rs[i].seatDate = ymsUtil.fmtDate3(rs[i].seatDate);
+                        //     }
+                        //     that.seatReservingData = rs;
+                        //
+                        //     //处理同时为true的情况：如当前用户正在查看某个已经被预定的座位，而之后又点击一个可选的座位时
+                        //     if (that.seatReservedHint == true) {
+                        //         that.seatReservedHint = false;
+                        //     }
+                        //     that.seatReserving = true; // 打开选择座位日期的弹框
+                        //
+                        //     //find the current date idx
+                        //     let idx = -1;
+                        //     for (let i = 0; i <rs.length; i++) {
+                        //         if (that.selectDate == rs[i].seatDate) {
+                        //             idx = i;
+                        //             break;
+                        //         }
+                        //     }
+                        //     if (idx == -1) {
+                        //
+                        //     }
+                        //
+                        //     this.resizeDateWidth(idx);
+                        //
+                        // }).catch(err => {
+                        //
+                        // });
                     } else {
                         ddAPI.ddAlert("提示", "你今天已经预定了座位哦", "确定")
                     }
@@ -1106,11 +1180,19 @@
                     ApiExample.getReservationStaff({selectDate: that.selectDate, code: code}).then(res => {
                         //2. show this seat data
                         ddAPI.hidePreloader();
+
                         that.seatReservedHintData = res.result;
-                        if (that.seatReserving == true) {
-                            that.seatReserving = false;
+                        if (res.result.no == undefined || res.result.no == null) {
+                            that.seatReservedHint = false;
+                            that.loadFloorData();
+                        } else {
+                            if (that.seatReserving == true) {
+                                that.seatReserving = false;
+                            }
+                            that.seatReservedHint = true; //打开弹窗
                         }
-                        that.seatReservedHint = true; //打开弹窗
+
+
                     }).catch(err => {
                         ddAPI.hidePreloader();
                         ddAPI.ddAlert("提示", "网络请求失败哦,请再试一下", "确定")
