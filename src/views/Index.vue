@@ -32,10 +32,9 @@
         mounted() {
             const that = this;
 
-
             dd.ready(() => {
                 dd.runtime.permission.requestAuthCode({
-                    corpId: 'dingfeefdd8ead408b2df5bf40eda33b7ba0', // 企业id
+                    corpId: 'ding93375f885bdf549635c2f4657eb6378f', // 企业id
                     onSuccess: async function (info) {
                         that.code = info.code; // 通过该免登授权码可以获取用户身份
                     }
