@@ -3,7 +3,6 @@ import axios from "axios";
 import Response from "./Response";
 import store from "../store";
 import router from "../router";
-// 测试
 import { ddAPI } from "./ddAPI";
 
 const serverConfig = require("@galaplat/utils/src/server.conf.json");
