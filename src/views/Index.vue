@@ -5,7 +5,7 @@
 <!--    </div>-->
 <div>
     <div class="main">
-<!--        <div>code={{code}}</div>-->
+        <div>code={{code}}</div>
         <router-view></router-view>
     </div>
     <Footer></Footer>
@@ -33,14 +33,14 @@
             const that = this;
 
 
-            // dd.ready(() => {
-            //     dd.runtime.permission.requestAuthCode({
-            //         corpId: 'dingfeefdd8ead408b2df5bf40eda33b7ba0', // 企业id
-            //         onSuccess: async function (info) {
-            //             that.code = info.code; // 通过该免登授权码可以获取用户身份
-            //         }
-            //     });
-            // })
+            dd.ready(() => {
+                dd.runtime.permission.requestAuthCode({
+                    corpId: 'dingfeefdd8ead408b2df5bf40eda33b7ba0', // 企业id
+                    onSuccess: async function (info) {
+                        that.code = info.code; // 通过该免登授权码可以获取用户身份
+                    }
+                });
+            })
 
         }
     }
