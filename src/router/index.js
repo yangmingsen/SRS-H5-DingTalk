@@ -3,18 +3,17 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-
 const routes = [
   {
-    path: '/:sysCode(\\w+)/',
+    path: "/:sysCode(\\w+)/",
     component: () => import("../views/Index"),
     redirect: "home",
     children: [
       {
         // path: "",
-        name: 'home',
-        path: '',
-        component: () => import("../views/Home"),
+        name: "home",
+        path: "",
+        component: () => import("../views/Home")
         // redirect: {name: "default-blank"},
         // children: [
         //   {
@@ -30,18 +29,18 @@ const routes = [
         // ]
       },
       {
-        name: 'login',
-        path: 'login',
-        component: () => import("../views/Login"),
+        name: "login",
+        path: "login",
+        component: () => import("../views/Login")
       },
       {
-        name: 'my-reserve',
-        path: 'my-reserve',
+        name: "my-reserve",
+        path: "my-reserve",
         component: () => import("../views/MyReserve")
       }
     ]
   }
-]
+];
 
 const router = new VueRouter({
   mode: "history",
