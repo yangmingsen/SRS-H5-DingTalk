@@ -31,6 +31,8 @@
         },
         mounted() {
             const that = this;
+
+
             // dd.ready(() => {
             //     dd.runtime.permission.requestAuthCode({
             //         corpId: 'dingfeefdd8ead408b2df5bf40eda33b7ba0', // 企业id

@@ -92,6 +92,7 @@
                                         suffix-icon="el-icon-date"
                                         class="my-body-history-filterdate-right"
                                         :editable=false
+                                        :clearable=false
                                 >
                                 </el-date-picker>
                             </div>
@@ -423,6 +424,7 @@
 
                         },
                         onFail: function() {
+                            ddAPI.stopPullToRefresh();
                         }
                     })
                 })
