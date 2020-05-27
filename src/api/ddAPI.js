@@ -38,7 +38,7 @@ export const ddAPI = {
             })
             .catch(err => {
               dd.device.notification.alert({
-                message: "登录请求失败,请重试",
+                message: "登录网络请求失败,请重试",
                 title: "提示", //可传空
                 buttonName: "确定",
                 onSuccess: function() {
