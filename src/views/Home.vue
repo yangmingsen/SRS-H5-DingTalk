@@ -766,15 +766,14 @@
             }
         },
         methods: {
-            //加载座位class
-
+            //预定按钮颜色样式
             getHintButtonSty() {
               return {
                   'hint-submit-button-enable': this.seatReservingUserChooseData.reservationDates.length > 0,
                   'hint-submit-button-disable': this.seatReservingUserChooseData.reservationDates.length < 1
               }
             },
-
+            //加载座位class
             getClass(item) {
                 const that = this;
                 let seatInfo = that.seatData;
@@ -830,7 +829,7 @@
                 const that = this;
 
                 if (that.seatReservingUserChooseData.reservationDates.length < 1) {
-                    ddAPI.ddAlert("提示", "亲 您还没有选择座位哦", "确定")
+                    // ddAPI.ddAlert("提示", "亲 您还没有选择座位哦", "确定")
                 } else {
                     //提交数据到服务API
                     ddAPI.showPreloader("正在为您拼命占座中...");
@@ -1251,7 +1250,7 @@
           let isLogin = localStorage.getItem("isLogin");
           if (!isLogin || +isLogin === 0) {
             // router.push({ name: 'login', query: { returnurl: router.history.current.fullPath }})
-            //this.$router.push({ name: 'login'})
+            this.$router.push({ name: 'login'})
           }
         },
         mounted() {
