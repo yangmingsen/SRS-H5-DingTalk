@@ -633,7 +633,7 @@
 
     .my-top {
         height: 4rem;
-        margin-left: -2%;
+        margin-left: -4%;
         width: 104%;
         border-top: 1px solid #E6E6E6;
         border-bottom: 1px solid #E6E6E6;
