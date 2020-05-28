@@ -284,7 +284,7 @@
                 if (nowDate != str) {
                     dd.ready(() => {
                         dd.device.notification.confirm({
-                            message: "亲 真的要取消吗",
+                            message: "客官 真的要取消吗",
                             title: "提示",
                             buttonLabels: ['是', '否'],
                             onSuccess : function(result) {

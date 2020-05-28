@@ -766,15 +766,14 @@
             }
         },
         methods: {
-            //加载座位class
-
+            //预定按钮颜色样式
             getHintButtonSty() {
               return {
                   'hint-submit-button-enable': this.seatReservingUserChooseData.reservationDates.length > 0,
                   'hint-submit-button-disable': this.seatReservingUserChooseData.reservationDates.length < 1
               }
             },
-
+            //加载座位class
             getClass(item) {
                 const that = this;
                 let seatInfo = that.seatData;
@@ -830,7 +829,7 @@
                 const that = this;
 
                 if (that.seatReservingUserChooseData.reservationDates.length < 1) {
-                    ddAPI.ddAlert("提示", "亲 您还没有选择座位哦", "确定")
+                    // ddAPI.ddAlert("提示", "亲 您还没有选择座位哦", "确定")
                 } else {
                     //提交数据到服务API
                     ddAPI.showPreloader("正在为您拼命占座中...");
@@ -858,6 +857,7 @@
 
                         } else if (res.result.value == 1) {
                             ddAPI.ddAlert("提示", "预定失败,请重试!", "确定")
+                            that.seatReservingUserChooseData.reservationDates = [];
                         } else if (res.result.value == 2) {
                             //
                             let tt = res.result.reservationDates;
@@ -878,6 +878,7 @@
                                     onSuccess : function() {
                                         //onSuccess将在点击button之后回调
                                         /*回调*/
+                                        that.seatReservingUserChooseData.reservationDates = [];
                                     },
                                     onFail : function(err) {}
                                 });
@@ -892,6 +893,8 @@
                                         //onSuccess将在点击button之后回调
                                         /*回调*/
                                         that.loadSeatReservingData();
+                                        // this.seatReservingUserChooseData.reservationDates = []; //清空当前选中的日期
+                                        that.seatReservingUserChooseData.reservationDates = [];
                                     },
                                     onFail : function(err) {}
                                 });
@@ -1251,7 +1254,7 @@
           let isLogin = localStorage.getItem("isLogin");
           if (!isLogin || +isLogin === 0) {
             // router.push({ name: 'login', query: { returnurl: router.history.current.fullPath }})
-            //this.$router.push({ name: 'login'})
+            this.$router.push({ name: 'login'})
           }
         },
         mounted() {
