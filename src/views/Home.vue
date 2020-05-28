@@ -96,7 +96,7 @@
                         <div class="grid-content seat-reserving-top-left">{{selectItem}}号座</div>
                     </el-col>
                     <el-col :span="12">
-                        <div class="grid-content seat-reserving-top-right" @click="submitUserChooseSeatData">
+                        <div class="grid-content seat-reserving-top-right" :class="getHintButtonSty()" @click="submitUserChooseSeatData">
                             我要预定
                         </div>
                     </el-col>
@@ -743,7 +743,6 @@
         ],
                 //end of 基础数据
 
-
                 //弹窗类数据
                 seatReservedHint: false, //弹窗：已被预定人信息 false 表示关闭
                 seatReservedHintData: {
@@ -768,6 +767,14 @@
         },
         methods: {
             //加载座位class
+
+            getHintButtonSty() {
+              return {
+                  'hint-submit-button-enable': this.seatReservingUserChooseData.reservationDates.length > 0,
+                  'hint-submit-button-disable': this.seatReservingUserChooseData.reservationDates.length < 1
+              }
+            },
+
             getClass(item) {
                 const that = this;
                 let seatInfo = that.seatData;
@@ -1244,7 +1251,7 @@
           let isLogin = localStorage.getItem("isLogin");
           if (!isLogin || +isLogin === 0) {
             // router.push({ name: 'login', query: { returnurl: router.history.current.fullPath }})
-            this.$router.push({ name: 'login'})
+            //this.$router.push({ name: 'login'})
           }
         },
         mounted() {
@@ -1294,25 +1301,27 @@
                 float: right;
                 padding-top: 2%;
                 padding-bottom: 2%;
-                background-color: #fff;
-                color: #E36386;
+                /*background-color: #fff;*/
+                /*color: #E36386;*/
                 border-radius: 7px;
                 margin-top: 3%;
                 margin-bottom: 3%;
                 margin-right: 3%;
                 width: 90px;
-
-                .seat-reserving-top-right-button {
-                    font-size: 1rem;
-                    border-radius: 5px;
-                    background-color: #fff;
-                    color: #E36386;
-                    width: 89px;
-                    margin-right: 0.2rem;
-                }
             }
         }
     }
+
+    .hint-submit-button-enable {
+        background-color: #fff;
+        color: #E36386;
+    }
+
+    .hint-submit-button-disable {
+        background-color: #9a9a9a;
+        color: #ffffff;
+    }
+
 
     //
     .seat-reserving .reserving-scroll {
