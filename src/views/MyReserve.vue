@@ -161,8 +161,8 @@
         name: "MyReserve",
         data() {
             return {
-                switchPage: 2, //0 未来预定(无数据)空白页, 1 未来预定(有数据)页, 2 历史预定页
-                selectButton: 2, // 1.未来预定  2.历史预定
+                switchPage: 1, //0 未来预定(无数据)空白页, 1 未来预定(有数据)页, 2 历史预定页
+                selectButton: 1, // 1.未来预定  2.历史预定
                 filterDateShow: ymsUtil.fmtDate5(new Date),
                 filterDate: ymsUtil.fmtDate5(new Date), //历史预定-当前日期
                 futureReservedData: [
