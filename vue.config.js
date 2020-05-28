@@ -19,5 +19,6 @@ module.exports = {
     port: 8848
   },
   outputDir: "../dist/dingtalk",
-  publicPath: "/dingtalk/"
+  publicPath: "/dingtalk/",
+  productionSourceMap: false
 };
