@@ -20,5 +20,7 @@ module.exports = {
   },
   outputDir: "../dist/dingtalk",
   publicPath: "/dingtalk/",
+  indexPath: "index.html",
+  assetsDir: "",
   productionSourceMap: false
 };
