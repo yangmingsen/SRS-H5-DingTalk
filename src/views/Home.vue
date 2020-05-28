@@ -1427,6 +1427,7 @@
             background-repeat: no-repeat;
             background-size: 100%;
             width: 120%;
+            margin-bottom: 5.5rem;
             /*left: 50%;*/
             /*right: 50%;*/
             /*transform: translate(-60%);*/
