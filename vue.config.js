@@ -21,6 +21,6 @@ module.exports = {
   outputDir: "../dist/dingtalk",
   publicPath: "/dingtalk/",
   indexPath: "index.html",
-  assetsDir: "",
+  assetsDir: "static",
   productionSourceMap: false
 };
