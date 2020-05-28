@@ -44,7 +44,7 @@ const config = getServerConfig();
 // 获取服务地址
 const serviceUrl = `${config.protocol || window.location.protocol}//${
   config.server
-}/srs/${busiSysCode}/`;
+}srs/${busiSysCode}/`;
 
 // 添加接口请求前缀
 axios.defaults.baseURL = config.env === "DEV" ? "/api" : serviceUrl;
