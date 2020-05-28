@@ -857,7 +857,7 @@
 
                         } else if (res.result.value == 1) {
                             ddAPI.ddAlert("提示", "预定失败,请重试!", "确定")
-                            that.this.seatReservingUserChooseData.reservationDates = [];
+                            that.seatReservingUserChooseData.reservationDates = [];
                         } else if (res.result.value == 2) {
                             //
                             let tt = res.result.reservationDates;
@@ -878,7 +878,7 @@
                                     onSuccess : function() {
                                         //onSuccess将在点击button之后回调
                                         /*回调*/
-                                        that.this.seatReservingUserChooseData.reservationDates = [];
+                                        that.seatReservingUserChooseData.reservationDates = [];
                                     },
                                     onFail : function(err) {}
                                 });
@@ -894,7 +894,7 @@
                                         /*回调*/
                                         that.loadSeatReservingData();
                                         // this.seatReservingUserChooseData.reservationDates = []; //清空当前选中的日期
-                                        that.this.seatReservingUserChooseData.reservationDates = [];
+                                        that.seatReservingUserChooseData.reservationDates = [];
                                     },
                                     onFail : function(err) {}
                                 });
