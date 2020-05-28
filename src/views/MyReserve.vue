@@ -84,7 +84,7 @@
                             <div class="grid-content my-body-history-filterdate-left">选择日期</div>
                         </el-col>
                         <el-col :span="18">
-                            <div class="block">
+                            <div class="block my-history-date-sty">
                                 <el-date-picker
                                         v-model="filterDateShow"
                                         type="month"
@@ -161,8 +161,8 @@
         name: "MyReserve",
         data() {
             return {
-                switchPage: 1, //0 未来预定(无数据)空白页, 1 未来预定(有数据)页, 2 历史预定页
-                selectButton: 1, // 1.未来预定  2.历史预定
+                switchPage: 2, //0 未来预定(无数据)空白页, 1 未来预定(有数据)页, 2 历史预定页
+                selectButton: 2, // 1.未来预定  2.历史预定
                 filterDateShow: ymsUtil.fmtDate5(new Date),
                 filterDate: ymsUtil.fmtDate5(new Date), //历史预定-当前日期
                 futureReservedData: [
@@ -457,6 +457,11 @@
 </script>
 
 <style lang="less" scoped>
+
+    .my-history-date-sty {
+       padding-top: 0.5rem;
+    }
+
     .my-body {
         margin-top: 4.2rem;
         margin-bottom: 4.4rem;
@@ -521,7 +526,7 @@
                         border-radius: 6px;
                         font-size: 0.8rem;
                         /*background-color: #37C9DA;*/
-                        /*color: #ffffff;*/
+                        color: #ffffff;
                         padding: 2px 0;
                     }
 
@@ -545,7 +550,7 @@
                 }
                 .my-body-history-filterdate-right {
                     font-size: 1rem;
-                    padding: 0.5rem 0;
+                    /*padding: 0.5rem 0;*/
                     width: 100%;
                 }
                 .my-body-history-filterdate-right /deep/ .el-input__inner {
@@ -561,6 +566,9 @@
                     color: #00afa5;
                     font-size: 1rem;
                     left: 90%;
+                }
+                .my-body-history-filterdate-right /deep/ .el-input__prefix i{
+                    line-height: 32px;
                 }
             }
             .my-body-history-content {

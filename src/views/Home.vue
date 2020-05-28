@@ -750,7 +750,7 @@
                     userName: "杨铭森",
                     departmentName: "流程IT中心"
                 },
-                seatReserving: false, //弹窗：用户点击可选座位 false 表示关闭
+                seatReserving: true, //弹窗：用户点击可选座位 false 表示关闭
                 //：0-可选；1-已被预订；2-当前用户已预定
                 //服务器返回数据
                 seatReservingData: [
@@ -1321,7 +1321,7 @@
     }
 
     .hint-submit-button-disable {
-        background-color: #9a9a9a;
+        background-color: #c4c4c4;
         color: #ffffff;
     }
 
