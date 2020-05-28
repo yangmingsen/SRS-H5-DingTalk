@@ -5,7 +5,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  created() {
+    localStorage.setItem("isLogin", "0"); //是否登录 0=未登录，1=登录
+  }
+};
 </script>
 
 <style>
