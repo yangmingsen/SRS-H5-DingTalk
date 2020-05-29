@@ -1066,16 +1066,17 @@
 
             resizeEvent() {
                 this.$nextTick(() => {
+                    let seatreserving = document.getElementsByClassName("seat-reserving")[0]
+                    let seatreservingHeight = seatreserving ? seatreserving.clientHeight : 0
                     document.getElementsByClassName("chooseseat")[0].style.height = (document.documentElement.clientHeight -
                         document.getElementsByClassName("filterarea")[0].offsetHeight -
                         document.getElementsByClassName("choosearea-hint")[0].offsetHeight -
                         document.getElementsByClassName("footer")[0].offsetHeight -
-                        10) + 'px'
+                        10 -
+                        seatreservingHeight) + 'px'
                     var choosefloors = document.getElementsByClassName("choosefloor")
-                    var seatreserving = document.getElementsByClassName("seat-reserving")[0]
                     for (var i = 0; i < choosefloors.length; i++) {
                         choosefloors[i].style.height = ((1299 / 1126) * choosefloors[i].clientWidth) + 'px'
-                        choosefloors[i].style.marginBottom = seatreserving.clientHeight + 'px'
                     }
                 })
             },
@@ -1258,9 +1259,9 @@
 
     //座位预定中 css
     .seat-reserving {
-        position: absolute;
+        position: fixed;
         width: 100%;
-        bottom: 0px;
+        bottom: 4.2rem;
         margin-left: -2%;
 
         .seat-reserving-top {
