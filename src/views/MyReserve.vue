@@ -559,6 +559,7 @@
                     color: #00afa5;
                     padding-left: 0.9rem;
                     height: 32px;
+                    line-height:32px;
                 }
 
 
