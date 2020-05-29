@@ -1072,8 +1072,10 @@
                         document.getElementsByClassName("footer")[0].offsetHeight -
                         10) + 'px'
                     var choosefloors = document.getElementsByClassName("choosefloor")
+                    var seatreserving = document.getElementsByClassName("seat-reserving")[0]
                     for (var i = 0; i < choosefloors.length; i++) {
                         choosefloors[i].style.height = ((1299 / 1126) * choosefloors[i].clientWidth) + 'px'
+                        choosefloors[i].style.marginBottom = seatreserving.clientHeight + 'px'
                     }
                 })
             },
@@ -1107,7 +1109,6 @@
                         that.seatReservedHint = false;
                     }
                     that.seatReserving = true; // 打开选择座位日期的弹框
-
                     //find the current date idx
                     let idx = -1;
                     for (let i = 0; i <rs.length; i++) {
@@ -1145,40 +1146,6 @@
                         that.seatReservingUserChooseData.code = seat.no; //设置当前选中座位的座位号
 
                         that.loadSeatReservingData();
-
-                        // ddAPI.showPreloader("拼命加载中...");
-                        // ApiExample.listSeatDateReservation({selectDate: that.selectDate, code: code}).then(res => {
-                        //     // that.seatReservingData = res.result;
-                        //     ddAPI.hidePreloader();
-                        //     let rs = res.result;
-                        //     for (let i = 0; i < rs.length; i++) {
-                        //         rs[i].seatDate = ymsUtil.fmtDate3(rs[i].seatDate);
-                        //     }
-                        //     that.seatReservingData = rs;
-                        //
-                        //     //处理同时为true的情况：如当前用户正在查看某个已经被预定的座位，而之后又点击一个可选的座位时
-                        //     if (that.seatReservedHint == true) {
-                        //         that.seatReservedHint = false;
-                        //     }
-                        //     that.seatReserving = true; // 打开选择座位日期的弹框
-                        //
-                        //     //find the current date idx
-                        //     let idx = -1;
-                        //     for (let i = 0; i <rs.length; i++) {
-                        //         if (that.selectDate == rs[i].seatDate) {
-                        //             idx = i;
-                        //             break;
-                        //         }
-                        //     }
-                        //     if (idx == -1) {
-                        //
-                        //     }
-                        //
-                        //     this.resizeDateWidth(idx);
-                        //
-                        // }).catch(err => {
-                        //
-                        // });
                     } else {
                         ddAPI.ddAlert("提示", "你今天已经预定了座位哦", "确定")
                     }
@@ -1256,6 +1223,16 @@
             // router.push({ name: 'login', query: { returnurl: router.history.current.fullPath }})
             this.$router.push({ name: 'login'})
           }
+        },
+        watch: {
+            //当seatReservedHint  seatReserving 发生变化时 重新计算高度
+
+            seatReservedHint: function () {
+                this.resizeEvent();
+            },
+            seatReserving: function () {
+                this.resizeEvent();
+            }
         },
         mounted() {
             // if($route) {
@@ -1429,7 +1406,7 @@
             background-repeat: no-repeat;
             background-size: 100%;
             width: 120%;
-            margin-bottom: 5.5rem;
+            /*margin-bottom: 5.5rem;*/
             /*left: 50%;*/
             /*right: 50%;*/
             /*transform: translate(-60%);*/
