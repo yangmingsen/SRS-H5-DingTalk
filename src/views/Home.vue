@@ -877,7 +877,9 @@
                                     buttonName: "确定",
                                     onSuccess : function() {
                                         //onSuccess将在点击button之后回调
+
                                         /*回调*/
+                                        that.loadSeatReservingData();
                                         that.seatReservingUserChooseData.reservationDates = [];
                                     },
                                     onFail : function(err) {}
@@ -893,7 +895,6 @@
                                         //onSuccess将在点击button之后回调
                                         /*回调*/
                                         that.loadSeatReservingData();
-                                        // this.seatReservingUserChooseData.reservationDates = []; //清空当前选中的日期
                                         that.seatReservingUserChooseData.reservationDates = [];
                                     },
                                     onFail : function(err) {}
