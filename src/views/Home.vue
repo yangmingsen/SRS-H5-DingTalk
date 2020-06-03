@@ -22,7 +22,7 @@
             <img class="blankarea-img" src="../assets/images/bg_noData_chf.png">
             <div class="txt-empty">
                 <div class="nodata">暂无数据</div>
-                <div class="hintchoosefloor">请先选择您工作的楼层</div>
+                <div class="hintchoosefloor">请选择预定座位所属楼层</div>
             </div>
         </div>
         <div class="choosearea" v-show="!isShowData">
@@ -1152,6 +1152,7 @@
                         ddAPI.ddAlert("提示", "你今天已经预定了座位哦", "确定")
                     }
                 } else if (seat.state == 2) { //if 已被预定
+                    that.selectItem = -1; // 处理当用户点击可选座位后，又立即点击已被预定的位置（而此时可选座位的选择状态没有被取消的情况）
                     ddAPI.showPreloader("拼命加载中...");
                     ev.stopPropagation();
                     // //show seat hint
